@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/png" href="../images/icon.png">
+    <title>GYMTRACKER</title>
+</head>
+<body>
+    <div class="body-wallpaper">
+        <div class="dni-container">
+            <button id="btn-admin-panel" >Panel de Administración</button>
+            <div>
+                <span id="clock"></span>
+            </div>
+            <span id="span-document">Ingrese su DNI</span>
+            <input id="input-document" autofocus autocomplete="off"/>
+            <span id="fetch-error"></span>
+        </div>
+        <div class="layout-popup">
+            <div class="popup-login">
+                <p id="title-popup-login">¡Que tengas buen entrenamiento!</p>   
+                <div class="login-data">
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="login-plan">
+                    <p>Vencimiento: <span></span></p>
+                    <p>Plan: <span></span> </p>
+                </div>
+                <div class="login-paid-days">
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let port = "";
+        let documentValue = "";
+        
+        document.addEventListener("DOMContentLoaded", async () => {
+            const $inputDocument = document.getElementById("input-document");
+            $inputDocument.addEventListener("input", (e) => {
+                documentValue = e.target.value;
+            });
+        
+            await getPort();
+            document.addEventListener("keyup", (e) => {
+                if(e.key === "Enter"){
+                    fetchLoginUser();
+                }
+            });
+
+            let timeout;
+            const resetCursor = () => {
+                document.body.style.cursor = "auto";
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    document.body.style.cursor = "none";
+                }, 4000);
+            }
+            document.addEventListener("mousemove", resetCursor);
+            resetCursor();
+
+            console.log(documentValue);
+        });
+
+        const getPort = async () => {
+            try{
+                const response = await fetch("public/html/port.txt");
+                port = await response.text();
+            }catch(err){
+                console.error("Error al cargar el archivo.", err);
+            }
+        };
+
+        const fetchLoginUser = async () => {
+            if(!port){
+                return;
+            }
+            if(!documentValue){
+                return;
+            }
+            try{
+                const response = await fetch(`http://localhost:${port}/loginUser`, {
+                    method: "POST",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({document: documentValue})
+                });
+                const data = await response.json();
+
+                console.log(data);
+
+                if(response.ok){
+                    document.getElementById("fetch-error").textContent = "";
+                    document.querySelector(".layout-popup").style.display = "block";
+                    document.querySelectorAll(".login-data span")[0].textContent = data.firstname.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
+                    document.querySelectorAll(".login-data span")[1].textContent = data.lastname.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
+
+                    document.querySelectorAll(".login-plan span")[0].textContent = data.expirationDate;
+                    document.querySelectorAll(".login-plan span")[1].textContent = data.plan;
+
+                    if(data.weeklyFrequency === 5){
+                        document.querySelectorAll(".login-paid-days span")[0].textContent = data.paidDays < 0 ? 0 + " dias" : data.paidDays + " dias";
+                        document.querySelector(".login-paid-days").style.backgroundColor = 
+                            data.paidDays > 5 ? "#81ec81" : (data.paidDays > -1 ? "#f3a960" : "#f18080");
+                    }else{
+                        document.querySelector(".login-paid-days").style.backgroundColor = 
+                            data.remainingClasses > 5 ? "#81ec81" : (data.remainingClasses > 0 ? "#f3a960" : "#f18080");
+                        document.querySelectorAll(".login-paid-days span")[0].textContent = data.remainingClasses + " clases";
+                    }
+
+                    setTimeout(() => {
+                        document.querySelector(".layout-popup").style.display = "none";
+                        document.getElementById("input-document").value = "";
+                        documentValue = "";
+                    }, 5000);
+                    await fetchUpdateRemainingClasses();
+                }else{
+                    document.getElementById("fetch-error").textContent = "DNI incorrecto.";
+                    document.getElementById("fetch-error").style.color = "red";
+                    setTimeout(() => {
+                        document.getElementById("fetch-error").textContent = "";
+                    }, 4000);
+                }
+            }catch(err){
+                console.error("Error al ingresar el usuario.", err);
+            }
+
+            
+        };
+
+        const fetchUpdateRemainingClasses = async () => {
+            if(!port){
+                return;
+            }
+            if(!documentValue){
+                return;
+            }
+            try{
+                const response = await fetch(`http://localhost:${port}/updateRemainingClasses`, {
+                    method: "POST",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({document: documentValue})
+                });
+                const data = await response.json();
+                console.log(data);
+            }catch(err){
+                console.error("Error al ingresar el usuario.", err);
+            }
+        }
+
+        const getDate = () => {
+            const date = new Date();
+            document.getElementById("clock").textContent = `${date.getHours() < 10 ? "0"+date.getHours() : date.getHours()}:${date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes()}`;
+        }
+        
+        getDate();
+
+        const now = new Date();
+        const millisecondsUntilNextMinute = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+
+        setTimeout(() => {
+            getDate();
+            setInterval(getDate, 60000);
+        }, millisecondsUntilNextMinute);
+
+
+        document.getElementById("btn-admin-panel").addEventListener("click", () => {
+            window.location.href = "/adminPanel";
+        });
+        
+    </script>
+</body>
+</html>

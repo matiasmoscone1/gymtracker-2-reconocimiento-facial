@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/png" href="../images/icon.png">
+    <title>GYMTRACKER</title>
+</head>
+<body>
+    <div class="create-user-container">
+        <span>Crear Usuario</span>
+        <div class="div-container">
+            <div>
+                <label>Nombre</label>
+                <input autocomplete="off" type="text" id="input-firstname" />
+            </div>
+            <div>
+                <label>Apellido</label>
+                <input autocomplete="off" type="text" id="input-lastname"/>
+            </div>
+            <div>
+                <label>Documento</label>
+                <input autocomplete="off" type="number" id="input-document"/>
+            </div>
+        </div>
+        <div class="div-container">
+            <div>
+                <label>Email</label>
+                <input autocomplete="off" type="email" id="input-email"/>
+            </div>
+            <div>
+                <label>Teléfono</label>
+                <input autocomplete="off" type="text" id="input-phone"/>
+            </div>
+            <div>
+                <label>Edad</label>
+                <input autocomplete="off" type="number" id="input-age"/>
+            </div>
+        </div>
+        <div class="div-container">
+            <div>
+                <label>Fecha de Inicio</label>
+                <input type="date" id="input-date"/>
+            </div>
+            <div>
+                <label>Plan</label>
+                <input autocomplete="off" type="text" id="input-plan"/>
+            </div>
+            <div>
+                <label>Meses</label>
+                <select id="select-term">
+                    <option value="1 Mes">1 Mes</option>
+                    <option value="2 Meses">2 Meses</option>
+                    <option value="3 Meses">3 Meses</option>
+                    <option value="4 Meses">4 Meses</option>
+                    <option value="5 Meses">5 Meses</option>
+                    <option value="6 Meses">6 Meses</option>
+                    <option value="7 Meses">7 Meses</option>
+                    <option value="8 Meses">8 Meses</option>
+                    <option value="9 Meses">9 Meses</option>
+                    <option value="10 Meses">10 Meses</option>
+                    <option value="11 Meses">11 Meses</option>
+                    <option value="12 Meses">12 Meses</option>
+                </select>
+            </div>
+        </div>
+        <div class="div-container">
+            <div>
+                <label>Monto</label>
+                <input autocomplete="off" type="number" id="input-amount"/>
+            </div>
+            <div>
+                <label>Forma de Pago</label>
+                <input autocomplete="off" type="text" id="input-paymentMethod"/>
+            </div>
+            <div>
+                <label>Frecuencia de días</label>
+                <select type="text" id="select-frequency">
+                    <option value="5">5 (Pase libre)</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+        </div>
+        <span class="post-create-user">Usuario creado con exito! Se redirige al Panel de administracion...</span>
+        <div class="btn-create-user-container">
+            <button class="btn-accept">Aceptar</button>
+            <button class="btn-cancel">Cancelar</button>
+        </div>
+    </div>
+    <button class="btn-back"></button>
+    <button class="btn-scan-face">Escanear rostro</button>
+
+    <script>
+        let port = "";
+
+        let objData = {
+            firstname: "",
+            lastname: "",
+            document: null,
+            email: "",
+            phone: "",
+            age: null,
+            plan: "",
+            term: null,
+            weeklyFrequency: null
+        }
+
+        let objDataPaymentHistory = {
+            firstname: "",
+            lastname: "",
+            document: null,
+            amount: null,
+            paymentMethod: ""
+        }
+
+        document.getElementById("input-document").addEventListener("keydown", (e) => {
+            if(["Backspace", "ArrowLeft", "ArrowRight", "Delete"].includes(e.key)){
+                return;
+            }
+            if(["Tab"].includes(e.key)){
+                return;
+            }
+            if(!/^[0-9]$/.test(e.key)){
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", async () => {
+
+            document.getElementById("input-date").value = new Date().toISOString().split("T")[0];
+            document.getElementById("input-date").max = new Date().toISOString().split("T")[0];
+
+            await getPort();
+
+            document.querySelector(".btn-scan-face").addEventListener("click", () => {
+                console.log("asd")
+                window.location.href = "/registerFace";
+            });
+
+            document.querySelector(".btn-accept").addEventListener("click", async () => {
+                objData.firstname = document.getElementById("input-firstname").value;
+                objData.lastname = document.getElementById("input-lastname").value;
+                objData.document = document.getElementById("input-document").value;
+                objData.email = document.getElementById("input-email").value;
+                objData.phone = document.getElementById("input-phone").value;
+                objData.age = document.getElementById("input-age").value;
+                objData.date = document.getElementById("input-date").value;
+                objData.plan = document.getElementById("input-plan").value;
+                objData.term = document.getElementById("select-term").value;
+                objData.weeklyFrequency = Number(document.getElementById("select-frequency").value);
+                objData.amount = document.getElementById("input-amount").value;
+                objData.paymentMethod = document.getElementById("input-paymentMethod").value;
+
+
+                await fetchCreateUser();
+                
+                document.querySelectorAll(".create-user-container input").forEach(input => input.value = "");
+                document.querySelector(".create-user-container select").value = "1 Mes";
+            });
+
+        });
+
+        const getPort = async () => {
+            try{
+                const response = await fetch("public/html/port.txt");
+                port = await response.text();
+            }catch(err){
+                console.error("Error al cargar el archivo.", err);
+            }
+        };
+
+        const fetchCreateUser = async () => {
+            let newExpirationDate = "";
+            let newPaidDays = "";
+            const currentDate = new Date();
+            if(objData.term === "1 Mes"){
+                newPaidDays = 30;
+            }
+            
+            for(let i = 2; i <= 12; i++){
+                if(objData.term === `${i} Meses`){
+                    newPaidDays = i * 30;
+                }
+            }
+
+            const diffTime = Math.abs(new Date() - new Date(objData.date));
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if(diffDays > 1){
+                newPaidDays = (newPaidDays + 1) - diffDays;
+            }
+
+            try{
+                const response = await fetch(`http://localhost:${port}/adminCreateUser`,{
+                    method: "POST",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({
+                        id: null,
+                        firstname: objData.firstname.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" "),
+                        lastname: objData.lastname.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" "),
+                        document: objData.document,
+                        email: objData.email,
+                        phone: objData.phone,
+                        age: objData.age,
+                        plan: objData.plan.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" "),
+                        term: objData.term,
+                        weeklyFrequency: objData.weeklyFrequency,
+                        initialDate: new Date(objData.date).toISOString().split("T")[0].split("-").reverse().join("/"),
+                        expirationDate: new Date(currentDate.getTime() + newPaidDays * 24 * 60 * 60 * 1000).toISOString().split("T")[0].split("-").reverse().join("/"),
+                        paidDays: newPaidDays,
+                        amount: objData.amount,
+                        paymentMethod: objData.paymentMethod.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")
+                    })
+                });
+                const data = await response.json();
+                if(response.ok){
+                    document.querySelector(".post-create-user").style.display = "block";
+                    setTimeout(() => {
+                    document.querySelector(".post-create-user").style.display = "none";
+                    window.location.href = "/adminPanel";
+                }, 2500);
+                }else{
+                    alert(data.message);
+                    window.location.href = "/adminPanel";
+                }
+            }catch(err){
+                console.error("Error al crear el nuevo usuario.", err);
+            }
+        }
+
+        document.querySelector(".btn-cancel").addEventListener("click", () => {
+            window.location.href = "/adminPanel";
+        });
+        document.querySelector(".btn-back").addEventListener("click", () => {
+            window.location.href = "/adminPanel";
+        });
+                    
+    </script>
+</body>
+</html>

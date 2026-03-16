@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/png" href="../images/icon.png">
+    <title>GYMTRACKER</title>
+</head>
+<body>
+    
+    <div class="billing-container">
+        <div class="filter-document-container">
+            <span>Historial por Usuario</span>
+            <div class="filter-search-user-container">
+                <div class="input-btn-container">
+                    <div>
+                        <input type="number" placeholder="Ingrese el documento" id="input-document"/>
+                        <button id="btn-search-user">Buscar</button>
+                    </div>
+                    <span id="error-document"></span>
+                </div>
+            </div>
+            <div class="payment-history-user">
+
+            </div>
+        </div>
+
+        <div class="monthly-balance-container">
+            <span>Balance Mensual</span>
+            <div class="expense-filter-plan-container">
+                <div class="expense">
+                    <button id="btn-expense">Agregar Egreso</button>
+                </div>
+                <div class="filter-plan-container">
+                    <div>
+                        <label>Filtrar por<strong>&nbsp;Planes</strong></label>
+                        <input type="text" id="category" />
+                    </div>
+                    <button id="filter-plan">Filtrar</button>
+                </div>
+            </div>
+
+            <div class="create-expense-container">
+                <span>Agregar Egreso</span>
+                <div class="div-container">
+                    <div>
+                        <label>Tipo de Egreso</label>
+                        <select id="type-expense">
+                            <option value="Sueldo">Sueldo</option>
+                            <option value="Alquiler">Alquiler</option>
+                            <option value="Gastos Varios">Gastos Varios</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="div-container" id="div-salary">
+                    <div>
+                        <label>Nombre</label>
+                        <input type="text" id="input-firstname-expense" autocomplete="off"/>
+                    </div>
+                    <div>
+                        <label>Apellido</label>
+                        <input type="text" id="input-lastname-expense" autocomplete="off"/>
+                    </div>
+                </div>
+
+                <div class="div-container" id="div-rent-various-expenses">
+                    <div>
+                        <label>Detalle</label>
+                        <input type="text" id="input-detail-expense" autocomplete="off"/>
+                    </div>
+                </div>
+
+                <div class="div-container">
+                    <div>
+                        <label>Fecha del Egreso</label>
+                        <input type="date" id="input-date-expense"/>
+                    </div>
+                    <div>
+                        <label>Monto</label>
+                        <input type="number" id="input-amount-expense"/>
+                    </div>
+                </div>
+
+                <p class="post-create-expense">Egreso agregado correctamente.</p>
+                <div class="div-btn-sell-product">
+                    <button class="btn-accept" id="btn-accept-3">Aceptar</button>
+                    <button class="btn-cancel" id="btn-cancel-3">Cancelar</button>
+                </div>
+
+            </div>
+
+            <div class="date-filter-container">
+                <div class="date-container">    
+                    <div>
+                        <label>Desde: </label>
+                        <input type="date" id="input-from"/>
+                    </div>
+                    <div>
+                        <label>Hasta: </label>
+                        <input type="date" id="input-to"/>
+                    </div>   
+                    <button id="btn-monthly-balance">Buscar</button>
+                    <span class="total-amount"></span>
+                    <span class="earnings-amount"></span>
+                    <span class="expenses-amount"></span>
+                </div>
+
+                <div class="filter-membership-products-container">
+                    <div>
+                        <label>Filtrar por<strong>&nbsp;Abonos</strong></label>
+                        <button id="filter-membership">Filtrar</button>
+                    </div>
+                    <div>
+                        <label>Filtrar por<strong>&nbsp;Egresos</strong></label>
+                        <button id="filter-expenses">Filtrar</button>
+                    </div>                    
+                    <div>
+                        <label>Filtrar por<strong>&nbsp;Productos</strong></label>
+                        <button id="filter-products">Filtrar</button>
+                    </div>
+                    <button class="btn-clear-filters-balance" id="btn-clear-filters">Limpiar Filtros</button>
+                    <div class="div-filter-paymentMethod">
+                        <div>
+                            <label>Filtrar por <strong>&nbsp;Forma de Pago</strong></label>
+                            <input type="text" id="input-filter-paymentMethod" autocomplete="off"/>
+                        </div>
+                        <button id="filter-paymentMethod">Filtrar</button>
+                    </div>
+                </div>
+            </div>
+            <h2 id="title-monthly-balance"></h2>
+            <button class="btn-close-history-2" id="btn-close-history-2">X</button>
+            <div class="monthly-balance-history-container">
+            </div>
+
+            <div class="monthly-balance-history-expense-container">
+            </div>
+
+            <div class="monthly-balance-history-products-container">
+            </div>
+            
+        </div>
+        <button class="btn-back"></button>
+        <button class="btn-sell-product">Vender Producto</button>
+        <div class="create-product-payment">
+            <span>Vender Producto</span>
+            <div class="div-container">
+                <div>
+                    <label>Documento</label>
+                    <input type="number" id="input-document-product" autocomplete="off"/>
+                </div>
+                <div>
+                    <label>Producto</label>
+                    <input type="text" id="input-title-product" autocomplete="off"/>
+                </div>
+            </div>
+            <div class="div-container">
+                <div>
+                    <label>Nombre</label>
+                    <input type="text" id="input-firstname-product" autocomplete="off"/>
+                </div>
+                <div>
+                    <label>Apellido</label>
+                    <input type="text" id="input-lastname-product" autocomplete="off"/>
+                </div>
+            </div>
+            <div class="div-container-2">
+                <div>
+                    <label>Fecha de Pago</label>
+                    <input type="date" id="input-date"/>
+                </div>
+                <div>
+                    <label>Monto</label>
+                    <input type="number" id="input-amount-product" autocomplete="off"/>
+                </div>
+                <div>
+                    <label>Forma de pago</label>
+                    <input type="text" id="input-paymentMethod-product" autocomplete="off"/>
+                </div>
+            </div>
+            <span class="post-create-product-payment">Producto vendido correctamente.</span>
+            <div class="div-btn-sell-product">
+                <button class="btn-accept" id="btn-accept-2">Aceptar</button>
+                <button class="btn-cancel" id="btn-cancel-2">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const userDocument = urlParams.get("userDocument");
+
+        let port = "";
+        let user;
+        
+        document.addEventListener("DOMContentLoaded", async () => {
+            
+            await getPort();
+
+            document.getElementById("type-expense").selectedIndex = -1;
+
+            document.getElementById("btn-search-user").addEventListener("click", () => {
+                fetchSearchUser();
+            });
+            document.getElementById("input-document").addEventListener("keyup", (e) => {
+                if(e.key === "Enter"){
+                    fetchSearchUser();
+                }
+            });
+            if(userDocument){
+                document.getElementById("input-document").value = userDocument;
+                fetchSearchUser();
+            }
+
+            document.getElementById("btn-monthly-balance").addEventListener("click", () => {
+                fetchMonthlyBalance();
+            })
+
+            document.getElementById("input-date").value = new Date().toISOString().split("T")[0];
+            document.getElementById("input-date").max = new Date().toISOString().split("T")[0];
+
+            document.getElementById("input-date-expense").value = new Date().toISOString().split("T")[0];
+            document.getElementById("input-date-expense").max = new Date().toISOString().split("T")[0];
+
+
+            document.querySelector(".btn-sell-product").addEventListener("click", (e) => {
+                e.stopPropagation();
+                document.querySelector(".create-product-payment").style.display = "flex";
+            });
+
+            document.addEventListener("click", (e) => {
+                if(!document.querySelector(".create-product-payment").contains(e.target) && !document.querySelector(".btn-sell-product").contains(e.target)){
+                    document.getElementById("input-document-product").value = "";
+                    document.getElementById("input-title-product").value = "";
+                    document.getElementById("input-firstname-product").value = "";
+                    document.getElementById("input-lastname-product").value = "";
+                    document.getElementById("input-amount-product").value = "";
+                    document.getElementById("input-paymentMethod-product").value = "";
+                    document.getElementById("input-date").value = new Date().toISOString().split("T")[0];
+                    document.querySelector(".create-product-payment").style.display = "none";
+                }
+            });
+
+            document.body.addEventListener("click", (e) => {
+                if(e.target && e.target.id === "btn-accept-2"){
+                    fetchCreateProductPayment();
+                }else if(e.target && e.target.id === "btn-cancel-2"){
+                    document.getElementById("input-document-product").value = "";
+                    document.getElementById("input-title-product").value = "";
+                    document.getElementById("input-firstname-product").value = "";
+                    document.getElementById("input-lastname-product").value = "";
+                    document.getElementById("input-amount-product").value = "";
+                    document.getElementById("input-paymentMethod-product").value = "";
+                    document.getElementById("input-date").value = new Date().toISOString().split("T")[0];
+                    document.querySelector(".create-product-payment").style.display = "none";
+                }
+            });
+
+            document.getElementById("type-expense").addEventListener("change", () => {
+                if(document.getElementById("type-expense").value === "Sueldo"){
+                    document.querySelector("#div-salary").style.display = "flex";
+                }else{
+                    document.querySelector("#div-salary").style.display = "none";
+                }
+                if(document.getElementById("type-expense").value === "Alquiler" || document.getElementById("type-expense").value === "Gastos Varios"){
+                    document.querySelector("#div-rent-various-expenses").style.display = "flex";
+                }else{
+                    document.querySelector("#div-rent-various-expenses").style.display = "none";
+                }
+            });
+
+            document.querySelector("#btn-expense").addEventListener("click", (e) => {
+                e.stopPropagation();
+                document.querySelector(".create-expense-container").style.display = "flex";
+            });
+
+            document.addEventListener("click", (e) => {
+                if(!document.querySelector(".create-expense-container").contains(e.target) && !document.querySelector("#btn-expense").contains(e.target)){
+                    document.getElementById("type-expense").value = "";
+                    document.querySelector("#div-salary").style.display = "none";
+                    document.querySelector("#div-rent-various-expenses").style.display = "none";
+                    document.getElementById("input-firstname-expense").value = "";
+                    document.getElementById("input-lastname-expense").value = "";
+                    document.getElementById("input-detail-expense").value = "";
+                    document.getElementById("input-amount-expense").value = "";
+                    document.getElementById("input-date-expense").value = new Date().toISOString().split("T")[0];
+                    document.querySelector(".create-expense-container").style.display = "none";
+                }
+            });
+
+            document.body.addEventListener("click", (e) => {
+                if(e.target && e.target.id === "btn-accept-3"){
+                    if(document.getElementById("type-expense").value === ""){
+                        alert("Debe seleccionar un tipo de Egreso.");
+                    }else{
+                        fetchCreateExpense();
+                    }
+                }else if(e.target && e.target.id === "btn-cancel-3"){
+                    document.getElementById("type-expense").value = "";
+                    document.querySelector("#div-salary").style.display = "none";
+                    document.querySelector("#div-rent-various-expenses").style.display = "none";
+                    document.getElementById("input-firstname-expense").value = "";
+                    document.getElementById("input-lastname-expense").value = "";
+                    document.getElementById("input-detail-expense").value = "";
+                    document.getElementById("input-amount-expense").value = "";
+                    document.getElementById("input-date-expense").value = new Date().toISOString().split("T")[0];
+                    document.querySelector(".create-expense-container").style.display = "none";
+                }
+            });
+
+            document.querySelector(".total-amount").innerHTML = `Total: <strong>$0</strong>`;
+
+        });
+
+        const getPort = async () => {
+            try{
+                const response = await fetch("public/html/port.txt");
+                port = await response.text();
+            }catch(err){
+                console.error("Error al cargar el archivo.", err);
+            }
+        };
+
+        const fetchSearchUser = async () => {
+            try{
+                const response = await fetch(`http://localhost:${port}/searchUser`, {
+                    method: "POST",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({
+                        document: document.getElementById("input-document").value
+                    })
+                });
+                if(response.ok){
+                    user = await response.json();
+                    
+                    const paymentHistoryContainer = document.querySelector(".payment-history-user");
+
+                    paymentHistoryContainer.innerHTML = `<h2>${user.firstname} ${user.lastname}</h2>`;
+                    const closeButton = document.createElement("button");
+                    closeButton.classList.add("btn-close-history");
+                    closeButton.textContent = "X";
+                    paymentHistoryContainer.appendChild(closeButton);
+
+                    user.paymentHistory.slice().reverse().forEach(payment => {
+                        const paymentDiv = document.createElement("div");
+
+                        paymentDiv.innerHTML = `
+                            <span class="after-span-2" data-fulltext="${payment.plan}">${payment.plan}</span>
+                            <span class="resize-span">${payment.term}</span>
+                            <span >$${Number(payment.amount).toLocaleString("es-ES")}</span>
+                            <span class="after-span" data-fulltext="${payment.paymentMethod}">${payment.paymentMethod}</span>
+                            <span>${payment.initialDate}</span>
+                            <span>${payment.expirationDate}</span>
+                            <button class="btn-edit-history" data-id="${payment.id}">Editar</button>
+                            <button class="btn-delete-history" data-id="${payment.id}">Eliminar</button>
+                        `;
+                        paymentHistoryContainer.appendChild(paymentDiv);
+                        
+                        paymentDiv.querySelector(".after-span-2").addEventListener("mouseenter", () => {
+                            paymentDiv.querySelectorAll(".resize-span").forEach(span => {
+                                span.style.marginLeft = "120px";
+                            });
+                        });
+                        paymentDiv.querySelector(".after-span-2").addEventListener("mouseleave", () => {
+                            paymentDiv.querySelectorAll(".resize-span").forEach(span => {
+                                span.style.marginLeft = "0px";
+                            });
+                        });
+                    });
+
+                    closeButton.addEventListener("click", () => {
+                        paymentHistoryContainer.innerHTML = "";
+                        document.getElementById("input-document").value = "";
+                        window.history.replaceState({}, document.title, window.location.pathname);
+                    });
+
+                    document.querySelectorAll(".btn-edit-history").forEach(button => {
+                        button.addEventListener("click", (e) => {
+                            const id = Number(e.target.dataset.id);
+                            const paymentEdit = user.paymentHistory.find((pay) => pay.id === id);
+
+                            const popup = document.createElement("div");
+                            popup.classList.add("popup-edit-delete");
+
+                            popup.innerHTML = `
+                                <h2>Editar pago</h2>
+                                <div>
+                                    <div class="div-label-input">
+                                        <label>Plan</label>
+                                        <input value="${paymentEdit.plan}" id="input-plan" autocomplete="off"/>
+                                    </div>
+                                    
+                                    <div class="div-label-input">
+                                        <label>Frecuencia de días</label>
+                                        <select id="select-frequency">
+                                            <option value="5">5 (Pase libre)</option>
+                                            <option value="4">4</option>
+                                            <option value="3">3</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="div-label-input">
+                                        <label>Meses</label>
+                                        <select id="select-term">
+                                            <option value="1 Mes">1 Mes</option>
+                                            <option value="2 Meses">2 Meses</option>
+                                            <option value="3 Meses">3 Meses</option>
+                                            <option value="4 Meses">4 Meses</option>
+                                            <option value="5 Meses">5 Meses</option>
+                                            <option value="6 Meses">6 Meses</option>
+                                            <option value="7 Meses">7 Meses</option>
+                                            <option value="8 Meses">8 Meses</option>
+                                            <option value="9 Meses">9 Meses</option>
+                                            <option value="10 Meses">10 Meses</option>
+                                            <option value="11 Meses">11 Meses</option>
+                                            <option value="12 Meses">12 Meses</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="div-label-input">
+                                        <label>Monto</label>
+                                        <input value="${paymentEdit.amount}" id="input-amount" autocomplete="off"/>
+                                    </div>
+                                    <div class="div-label-input">
+                                        <label>Modalidad</label>
+                                        <input value="${paymentEdit.paymentMethod}" id="input-paymentMethod" autocomplete="off"/>
+                                    </div>
+                                </div>
+                                <div class="div-date">
+                                    <p>${paymentEdit.initialDate}</p><p>-</p>
+                                    <p>${paymentEdit.expirationDate}</p>
+                                </div>
+                                <p class="post-update-payment"></p>
+                                <div class="div-btn-actions">
+                                    <button class="btn-accept" id="btn-payment-accept">Aceptar</button>
+                                    <button class="btn-cancel" id="btn-payment-cancel">Cerrar</button>
+                                </div>
+                            `;
+
+
+                            paymentHistoryContainer.appendChild(popup);
+                            document.getElementById("select-frequency").value = user.weeklyFrequency;
+                            document.getElementById("select-term").value = `${paymentEdit.term}`;
+                            
+                            popup.querySelector("#btn-payment-accept").addEventListener("click", () => {
+                                fetchUpdatePayment(user.document, paymentEdit);
+                            });
+
+                            const handleOutsideClick = (e) => {
+                                if(!popup.contains(e.target)){
+                                    popup.remove();
+                                    document.removeEventListener("click", handleOutsideClick);
+                                }
+                            }
+                            popup.querySelector("#btn-payment-cancel").addEventListener("click", () => {
+                                popup.remove();
+                                document.removeEventListener("click", handleOutsideClick);
+                            });
+                            setTimeout(() => { 
+                                document.addEventListener("click", handleOutsideClick);
+                            }, 100);
+                        });
+                    });
+
+                    document.querySelectorAll(".btn-delete-history").forEach(button => {
+                        button.addEventListener("click", (e) => {
+                            const id = Number(e.target.dataset.id);
+                            const paymentDelete = user.paymentHistory.find((pay) => pay.id === id);
+                           
+                            const popup = document.createElement("div");
+                            popup.classList.add("popup-edit-delete");
+
+                            let subtractPaidDays;
+                            if(paymentDelete.term === "1 Mes"){
+                                subtractPaidDays = 30;
+                            }
+                            
+                            for(let i = 2; i <= 12; i++){
+                                if(paymentDelete.term === `${i} Meses`){
+                                    subtractPaidDays = i * 30;
+                                }
+                            }
+
+                            popup.innerHTML = `
+                                <h2>Eliminar pago</h2>
+                                ${new Date(paymentDelete.expirationDate.split('/').reverse().join('-')).getTime() > new Date().getTime()
+                                    ? `<p class="p1-popup-delete">Si elimina este pago se descontarán ${subtractPaidDays} dias al usuario.</p>
+                                    <p class="p2-popup-delete">Recomendación: Eliminar el pago cuando cumpla la fecha de vencimiento.</p>`
+                                    : `<div></div>`}                                    
+                                <p>¿Esta seguro que desea eliminar el pago?</p>
+                                <div class="div-delete-payment">
+                                    <span>${paymentDelete.plan}</span>
+                                    <span>${paymentDelete.term}</span>
+                                    <span>$${paymentDelete.amount}</span>
+                                    <span>${paymentDelete.paymentMethod}</span>
+                                    <span>${paymentDelete.initialDate}</span>
+                                    <span>${paymentDelete.expirationDate}</span>
+                                </div>
+                                <p class="post-delete-payment"></p>
+                                <div class="div-btn-actions-delete">
+                                    <button class="btn-delete">Eliminar</button>
+                                    <button class="btn-cancel">Cancelar</button>    
+                                </div>
+                            `;
+
+                            paymentHistoryContainer.appendChild(popup);
+                            
+                            popup.querySelector(".btn-delete").addEventListener("click", () => {
+                                fetchDeletePayment(user.document, paymentDelete.id);
+                            });
+
+                            const handleOutsideClick = (e) => {
+                                if(!popup.contains(e.target)){
+                                    popup.remove();
+                                    document.removeEventListener("click", handleOutsideClick);
+                                }
+                            }
+                            popup.querySelector(".btn-cancel").addEventListener("click", () => {
+                                popup.remove();
+                                document.removeEventListener("click", handleOutsideClick);
+                            });
+                            setTimeout(() => { 
+                                document.addEventListener("click", handleOutsideClick);
+                            }, 100);
+                        });
+                    });
+
+                }else{
+                    document.getElementById("error-document").textContent = "Documento incorrecto";
+                    document.getElementById("error-document").style.color = "red";
+                    setTimeout(() => {
+                        document.getElementById("error-document").textContent = "";
+                    }, 2500);
+                }
+            }catch(err){
+                console.error("Error al obtener el usuario a editar.", err);
+            }
+        }
+
+        const fetchDeletePayment = async (userDocument, paymentId) => {
+            try{
+                const response = await fetch(`http://localhost:${port}/deletePayment`, {
+                    method: "DELETE",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({
+                       userDocument: userDocument,
+                       paymentId: paymentId 
+                    })
+                });
+                if(response.ok){
+                    document.querySelector(".post-delete-payment").textContent = "Pago eliminado con exito.";
+                    setTimeout(async () => {
+                        document.querySelector(".post-delete-payment").textContent = "";
+                        if(document.querySelector(".popup-edit-delete")){
+                            document.querySelector(".popup-edit-delete").remove();
+                        }
+                        if(document.querySelector(".popup-edit-delete-monthly-balance")){
+                            document.querySelector(".popup-edit-delete-monthly-balance").remove();
+                        }
+                        if(document.getElementById("input-document").value !== ""){
+                            await fetchSearchUser();
+                        }
+                        if(document.querySelector(".monthly-balance-history-container").value !== ""){
+                            await fetchMonthlyBalance();
+                        }
+                    }, 2000);
+
+                }
+            }catch(err){
+                console.error("Error al eliminar el pago.", err);
+            }
+        }
+
+        const fetchUpdatePayment = async (userDocument, payment) => {
+            try{
+                const response = await fetch(`http://localhost:${port}/updatePayment`, {
+                    method: "POST",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({
+                        userDocument: userDocument,
+                        paymentId: payment.id,
+                        plan: document.getElementById("input-plan").value.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" "),
+                        term: document.getElementById("select-term").value,
+                        weeklyFrequency: document.getElementById("select-frequency").value,
+                        amount: document.getElementById("input-amount").value,
+                        paymentMethod: document.getElementById("input-paymentMethod").value.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" "),
+                        initialDate: payment.initialDate,
+                        expirationDate: payment.expirationDate
+                    })
+                });
+                if(response.ok){
+                    document.querySelector(".post-update-payment").textContent = "Pago actualizado con exito.";
+                    setTimeout(async () => {
+                        document.querySelector(".post-update-payment").textContent = "";
+                        if(document.querySelector(".popup-edit-delete")){
+                            document.querySelector(".popup-edit-delete").remove();
+                        }
+                        if(document.querySelector(".popup-edit-delete-monthly-balance")){
+                            document.querySelector(".popup-edit-delete-monthly-balance").remove();
+                        }
+                        if(document.getElementById("input-document").value !== ""){
+                            await fetchSearchUser();
+                        }
+                        if(document.querySelector(".monthly-balance-history-container").value !== ""){
+                            await fetchMonthlyBalance();
+                        }
+                    }, 2000);
+                }
+            }catch(err){
+                console.error("Error al actualizar el pago.", err);
+            }
+        }
+        
+        const fetchMonthlyBalance = async () => {
+            let accTotal = 0;
+            let accMembership = 0;
+            let accProducts = 0;
+            try{
+                const response = await fetch(`http://localhost:${port}/monthlyBalance`, {
+                    method: "POST",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({
+                        from: new Date(document.getElementById("input-from").value),
+                        to: new Date(document.getElementById("input-to").value)
+                    })
+                })
+                if(response.ok){
+                    const data = await response.json();
+                    let paymentsAmount = 0;
+                    let paymentsExpensesAmount = 0;
+                    let paymentsProductsAmount = 0;
+                    
+                    let filteredPayments = {
+                        userPayments: data.userPayments,
+                        productsPayments: data.productsPayments,
+                        expensesPayments: data.expensesPayments
+                    };
+
+                    if(document.querySelector(".monthly-balance-history-container")){
+                        document.querySelector(".monthly-balance-history-container").remove();
+                        const monthlyBalance = document.createElement("div");
+                        monthlyBalance.classList.add("monthly-balance-history-container");
+                        document.querySelector(".monthly-balance-container").appendChild(monthlyBalance);
+                    }
+
+                    if(document.querySelector(".monthly-balance-history-expense-container")){
+                        document.querySelector(".monthly-balance-history-expense-container").remove();
+                        const monthlyBalanceExpense = document.createElement("div");
+                        monthlyBalanceExpense.classList.add("monthly-balance-history-expense-container");
+                        document.querySelector(".monthly-balance-container").appendChild(monthlyBalanceExpense);
+                    }
+
+                    if(document.querySelector(".monthly-balance-history-products-container")){
+                        document.querySelector(".monthly-balance-history-products-container").remove()
+                        const monthlyBalanceProducts = document.createElement("div");
+                        monthlyBalanceProducts.classList.add("monthly-balance-history-products-container");
+                        document.querySelector(".monthly-balance-container").appendChild(monthlyBalanceProducts);
+                    }
+
+                    const updateTotalAmount = () => {
+                        const showUser = document.querySelector(".monthly-balance-history-container").style.display !== "none";
+                        const showExpenses = document.querySelector(".monthly-balance-history-expense-container").style.display !== "none";
+                        const showProducts = document.querySelector(".monthly-balance-history-products-container").style.display !== "none";
+                        let total = Number(paymentsAmount) + Number(paymentsProductsAmount) - Number(paymentsExpensesAmount);
+
+                        if(showUser && showProducts && showExpenses){
+                            document.querySelector(".total-amount").innerHTML = `Total: <strong>${total < 0 ? `-$${Number(-total).toLocaleString("es-ES")}` : `$${Number(total).toLocaleString("es-ES")}`}</strong>`;
+                        }else if(showUser && showProducts){
+                            document.querySelector(".total-amount").innerHTML = `Total: <strong>$${(paymentsAmount + paymentsProductsAmount).toLocaleString("es-ES")}</strong>`;
+                        }else if(showUser){
+                            document.querySelector(".total-amount").innerHTML = `Total: <strong>$${Number(paymentsAmount).toLocaleString("es-ES")}</strong>`;
+                        }else if(showProducts){
+                            document.querySelector(".total-amount").innerHTML = `Total: <strong>$${Number(paymentsProductsAmount).toLocaleString("es-ES")}</strong>`;
+                        }else if(showExpenses){
+                            document.querySelector(".total-amount").innerHTML = `Total: <strong>-$${Number(paymentsExpensesAmount).toLocaleString("es-ES")}</strong>`;
+                        }
+                        
+                        document.querySelector(".earnings-amount").style.display = "block";
+                        document.querySelector(".expenses-amount").style.display = "block";
+
+                        document.querySelector(".earnings-amount").innerHTML = `<span>Total Ingreso:</span> <strong>$${(data.userPayments.reduce((sum, p) => sum + Number(p.amount), 0) + data.productsPayments.reduce((sum, p) => sum + Number(p.amount), 0)).toLocaleString("es-ES")}</strong>`;
+                        document.querySelector(".expenses-amount").innerHTML = `<span>Total Egreso:</span> <strong>-$${(data.expensesPayments.reduce((sum, p) => sum + Number(p.amount), 0)).toLocaleString("es-ES")}</strong>`;
+
+                    };
+                    const calculateTotals = () => {
+                        paymentsAmount = filteredPayments.userPayments.reduce((sum, p) => sum + Number(p.amount), 0);
+                        paymentsExpensesAmount = filteredPayments.expensesPayments.reduce((sum, p) => sum + Number(p.amount), 0);
+                        paymentsProductsAmount = filteredPayments.productsPayments.reduce((sum, p) => sum + Number(p.amount), 0);
+                    };
+
+                    document.getElementById("title-monthly-balance").textContent = "Todos los Pagos";
+                    document.getElementById("btn-close-history-2").style.display = "block";
+                    
+                    const monthlyBalanceContainer = document.querySelector(".monthly-balance-history-container");
+
+                    const titleDiv = document.createElement("div");
+                    titleDiv.innerHTML = `
+                        <span>Documento</span>
+                        <span>Nombre</span>
+                        <span>Apellido</span>
+                        <span>Plan</span>
+                        <span>Periodo</span>
+                        <span>Importe</span>
+                        <span>Modalidad</span>
+                        <span>Inicio</span>
+                        <span>Fin</span>`;
+                    titleDiv.classList.add("monthly-balance-history-title-div");
+                    monthlyBalanceContainer.appendChild(titleDiv);
+                    
+
+                    // Contenedor para los botones de paginación
+                    const paymentsPerPage = 50; // Cantidad de pagos por página
+                    let currentPage = 1;
+
+                    const paginationContainer = document.createElement("div");
+                    paginationContainer.classList.add("pagination-container");
+                    monthlyBalanceContainer.appendChild(paginationContainer);
+                    
+
+                    const renderPaymentsPage = (page) => {
+
+                        // Borrar pagos viejos
+                        const oldPayments = monthlyBalanceContainer.querySelectorAll(".payment-div");
+                        oldPayments.forEach(div => div.remove());
+
+                        // Calcular el rango
+                        const start = (page - 1) * paymentsPerPage;
+                        const end = start + paymentsPerPage;
+
+                        const paymentsToShow = filteredPayments.userPayments.slice(start, end);
+
+                        paymentsToShow.forEach(payment => {
+
+                            const paymentDiv = document.createElement("div");
+                            paymentDiv.classList.add("payment-div");
+
+
+                            paymentDiv.innerHTML = `
+                                <span>${Number(payment.document).toLocaleString("es-ES")}</span>
+                                <span class="after-span" data-fulltext="${payment.firstname}">${payment.firstname}</span>
+                                <span class="after-span" data-fulltext="${payment.lastname}">${payment.lastname}</span>                            
+                                <span class="after-span" data-fulltext="${payment.plan}">${payment.plan}</span>
+                                <span>${payment.term}</span>
+                                <span>$${Number(payment.amount).toLocaleString("es-ES")}</span>
+                                <span class="after-span" data-fulltext="${payment.paymentMethod}">${payment.paymentMethod}</span>
+                                <span>${payment.initialDate}</span>
+                                <span>${payment.expirationDate}</span>
+                                <button class="btn-edit-history" data-id="${payment.id}" data-document="${payment.document}">Editar</button>
+                                <button class="btn-delete-history" data-id="${payment.id}" data-document="${payment.document}">Eliminar</button>
+                            `;
+                            monthlyBalanceContainer.appendChild(paymentDiv);
+                        });
+                        
+                        //popup edit
+                        document.querySelectorAll(".btn-edit-history").forEach(button => {
+                            button.addEventListener("click", (e) => {
+                                const datasetDocument = e.target.dataset.document;
+                                const id = Number(e.target.dataset.id);
+                                const paymentEdit = data.userPayments.find((pay) => pay.id === id);
+
+                                const popup = document.createElement("div");
+                                popup.classList.add("popup-edit-delete-monthly-balance");
+
+                                popup.innerHTML = `
+                                    <h2>Editar Pago</h2>
+                                    <div>
+                                        <div class="div-label-input">
+                                            <label>Plan</label>
+                                            <input value="${paymentEdit.plan}" id="input-plan" autocomplete="off"/>
+                                        </div>
+                                        <div class="div-label-input">
+                                            <label>Meses</label>
+                                            <select id="select-term">
+                                                <option value="1 Mes">1 Mes</option>
+                                                <option value="2 Meses">2 Meses</option>
+                                                <option value="3 Meses">3 Meses</option>
+                                                <option value="4 Meses">4 Meses</option>
+                                                <option value="5 Meses">5 Meses</option>
+                                                <option value="6 Meses">6 Meses</option>
+                                                <option value="7 Meses">7 Meses</option>
+                                                <option value="8 Meses">8 Meses</option>
+                                                <option value="9 Meses">9 Meses</option>
+                                                <option value="10 Meses">10 Meses</option>
+                                                <option value="11 Meses">11 Meses</option>
+                                                <option value="12 Meses">12 Meses</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="div-label-input">
+                                            <label>Monto</label>
+                                            <input value="${paymentEdit.amount}" id="input-amount" autocomplete="off"/>
+                                        </div>
+                                        <div class="div-label-input">
+                                            <label>Modalidad</label>
+                                            <input value="${paymentEdit.paymentMethod}" id="input-paymentMethod" autocomplete="off"/>
+                                        </div>
+                                    </div>
+                                    <div class="div-date">
+                                        <p>${paymentEdit.initialDate}</p><p>-</p>
+                                        <p>${paymentEdit.expirationDate}</p>
+                                    </div>
+                                    <p class="post-update-payment"></p>
+                                    <div class="div-btn-actions">
+                                        <button class="btn-accept" id="btn-payment-accept-2">Aceptar</button>
+                                        <button class="btn-cancel" id="btn-payment-cancel-2">Cerrar</button>
+                                    </div>
+                                `;
+                                monthlyBalanceContainer.appendChild(popup);
+                                document.getElementById("select-term").value = `${paymentEdit.term}`;
+                                
+                                popup.querySelector("#btn-payment-accept-2").addEventListener("click", () => {
+                                    fetchUpdatePayment(datasetDocument, paymentEdit);
+                                });
+
+                                const handleOutsideClick = (e) => {
+                                    if(!popup.contains(e.target)){
+                                        popup.remove();
+                                        document.removeEventListener("click", handleOutsideClick);
+                                    }
+                                }
+                                popup.querySelector("#btn-payment-cancel-2").addEventListener("click", () => {
+                                    popup.remove();
+                                    document.removeEventListener("click", handleOutsideClick);
+                                });
+                                setTimeout(() => { 
+                                    document.addEventListener("click", handleOutsideClick);
+                                }, 100);
+                            });
+                        });
+
+                        //popup delete
+                        document.querySelectorAll(".btn-delete-history").forEach(button => {
+                            button.addEventListener("click", (e) => {
+                                const datasetDocument = e.target.dataset.document;
+                                const id = Number(e.target.dataset.id);
+                                const paymentDelete = data.userPayments.find((pay) => pay.id === id);
+
+                                let subtractPaidDays;
+                                if(paymentDelete.term === "1 Mes"){
+                                    subtractPaidDays = 30;
+                                }
+                                
+                                for(let i = 2; i <= 12; i++){
+                                    if(paymentDelete.term === `${i} Meses`){
+                                        subtractPaidDays = i * 30;
+                                    }
+                                }
+
+                                const popup = document.createElement("div");
+                                popup.classList.add("popup-edit-delete-monthly-balance");
+
+                                popup.innerHTML = `
+                                    <h2>Eliminar pago</h2>
+                                    ${new Date(paymentDelete.expirationDate.split('/').reverse().join('-')).getTime() > new Date().getTime()
+                                        ? `<p class="p1-popup-delete">Si elimina este pago se descontarán ${subtractPaidDays} dias al usuario.</p>
+                                        <p class="p2-popup-delete">Recomendación: Eliminar el pago cuando cumpla la fecha de vencimiento.</p>`
+                                        : `<div></div>`}
+                                    <p>¿Esta seguro que desea eliminar el pago?</p>
+                                    <div class="div-delete-payment">
+                                        <span>${paymentDelete.plan}</span>
+                                        <span>${paymentDelete.term}</span>
+                                        <span>$${paymentDelete.amount}</span>
+                                        <span>${paymentDelete.paymentMethod}</span>
+                                        <span>${paymentDelete.initialDate}</span>
+                                        <span>${paymentDelete.expirationDate}</span>
+                                    </div>
+                                    <p class="post-delete-payment"></p>
+                                    <div class="div-btn-actions-delete">
+                                        <button class="btn-delete">Eliminar</button>
+                                        <button class="btn-cancel">Cancelar</button>    
+                                    </div>
+                                `;
+
+                                monthlyBalanceContainer.appendChild(popup);
+                                
+                                popup.querySelector(".btn-delete").addEventListener("click", () => {
+                                    fetchDeletePayment(datasetDocument, paymentDelete.id);
+                                });
+
+                                const handleOutsideClick = (e) => {
+                                    if(!popup.contains(e.target)){
+                                        popup.remove();
+                                        document.removeEventListener("click", handleOutsideClick);
+                                    }
+                                }
+                                popup.querySelector(".btn-cancel").addEventListener("click", () => {
+                                    popup.remove();
+                                    document.removeEventListener("click", handleOutsideClick);
+                                });
+                                setTimeout(() => { 
+                                    document.addEventListener("click", handleOutsideClick);
+                                }, 100);
+                            });
+                        });
+                    }
+
+                
+                    const renderPaginationButtons = () => {
+                        paginationContainer.innerHTML = "";
+
+                        const totalPages = Math.ceil(filteredPayments.userPayments.length / paymentsPerPage);
+                        const maxVisibleButtons = 7;
+
+                        const createButton = (page, text = page) => {
+                            const btn = document.createElement("button");
+                            btn.textContent = text;
+                            btn.classList.add("pagination-button");
+                            if (page === currentPage) btn.classList.add("active");
+
+                            btn.addEventListener("click", () => {
+                                currentPage = page;
+                                renderPaymentsPage(currentPage);
+                                renderPaginationButtons();
+                            });
+
+                            paginationContainer.appendChild(btn);
+                        }
+
+                        // Mostrar el primer botón
+                        createButton(1);
+
+                        let startPage = Math.max(2, currentPage - 2);
+                        let endPage = Math.min(totalPages - 1, currentPage + 2);
+
+                        if (currentPage <= 4) {
+                            startPage = 2;
+                            endPage = Math.min(5, totalPages - 1);
+                        }
+
+                        if (currentPage >= totalPages - 3) {
+                            startPage = Math.max(2, totalPages - 4);
+                            endPage = totalPages - 1;
+                        }
+
+                        // Agregar puntos suspensivos si es necesario
+                        if (startPage > 2) {
+                            const dots = document.createElement("span");
+                            dots.textContent = "...";
+                            dots.classList.add("pagination-dots");
+                            paginationContainer.appendChild(dots);
+                        }
+
+                        // Agregar botones de páginas intermedias
+                        for (let i = startPage; i <= endPage; i++) {
+                            createButton(i);
+                        }
+
+                        if (endPage < totalPages - 1) {
+                            const dots = document.createElement("span");
+                            dots.textContent = "...";
+                            dots.classList.add("pagination-dots");
+                            paginationContainer.appendChild(dots);
+                        }
+
+                        // Mostrar el último botón
+                        if (totalPages > 1) {
+                            createButton(totalPages);
+                        }
+                    }
+                    
+                    renderPaymentsPage(currentPage);
+                    renderPaginationButtons();
+                    calculateTotals();
+                    updateTotalAmount();
+
+/*
+********************** ACA VA EL RENDER DE EGRESOS *******************************
+    */
+
+                    const monthlyBalanceExpenseContainer = document.querySelector(".monthly-balance-history-expense-container");
+
+                    const titleDivExpense = document.createElement("div");
+                    titleDivExpense.innerHTML = `
+                        <span>Tipo</span>
+                        <span>Nombre</span>
+                        <span>Apellido</span>
+                        <span class="resize-detail">Detalle</span>
+                        <span>Importe</span>
+                        <span>Fecha</span>`;
+                    titleDivExpense.classList.add("expense-class");   
+                    titleDivExpense.classList.add("monthly-balance-history-expense-title-div");
+                    monthlyBalanceExpenseContainer.appendChild(titleDivExpense);
+
+
+                    // Contenedor para los botones de paginación
+                    const paymentsPerPageExpense = 20; // Cantidad de pagos por página
+                    let currentPageExpense = 1;
+
+                    const paginationExpenseContainer = document.createElement("div");
+                    paginationExpenseContainer.classList.add("pagination-container-expense");
+                    monthlyBalanceExpenseContainer.appendChild(paginationExpenseContainer);
+
+                    const renderPaymentsPageExpense = (page) => {
+
+                        // Borrar pagos viejos
+                        const oldPayments = monthlyBalanceExpenseContainer.querySelectorAll(".expense-div");
+                        oldPayments.forEach(div => div.remove());
+
+                        // Calcular el rango
+                        const start = (page - 1) * paymentsPerPageExpense;
+                        const end = start + paymentsPerPageExpense;
+
+                        const expensesToShow = filteredPayments.expensesPayments.slice(start, end);
+
+                        expensesToShow.forEach(expense => {
+                            
+                            const paymentDiv = document.createElement("div");
+                            paymentDiv.classList.add("expense-class");
+                            paymentDiv.classList.add("expense-div");
+
+                            paymentDiv.innerHTML = `
+                                <span>${expense.type}</span>
+                                <span class="after-span" data-fulltext="${expense.firstname ? expense.firstname : "-"}">${expense.firstname ? expense.firstname : "-"}</span>
+                                <span class="after-span" data-fulltext="${expense.lastname ? expense.lastname : "-"}">${expense.lastname ? expense.lastname : "-"}</span>
+                                <span class="resize-detail" title="${expense.detail ? expense.detail : "-"}">${expense.detail ? expense.detail : "-"}</span>
+                                <span>-$${Number(expense.amount).toLocaleString("es-ES")}</span>
+                                <span>${expense.date}</span>
+                                <button class="btn-edit-history" data-id="${expense.id}" data-button="payment-expense">Editar</button>
+                                <button class="btn-delete-history" data-id="${expense.id}" data-button="payment-expense">Eliminar</button>
+                            `;
+                            monthlyBalanceExpenseContainer.appendChild(paymentDiv);
+                        });
+
+                        
+                        // popup edit expense           
+                        document.querySelectorAll(".btn-edit-history").forEach(button => {
+                            button.addEventListener("click", (e) => {
+                                const id = Number(e.target.dataset.id);
+                                const paymentEdit = data.expensesPayments.find((pay) => pay.id === id);
+
+                                if(e.target.dataset.button !== "payment-expense"){
+                                    return;
+                                }
+
+                                const popup = document.createElement("div");
+                                popup.classList.add("popup-edit-delete-expense");
+
+                                paymentEdit.type === "Sueldo" ? 
+                                    popup.innerHTML = `
+                                            <h2>Editar Egreso</h2>
+                                            <div class="div-popup-edit-delete-expense">
+                                                <div class="div-container">
+                                                    <div class="div-label-input">
+                                                        <label>Tipo de Egreso</label>
+                                                        <select id="type-expense" disabled value="${paymentEdit.type}">
+                                                            <option value="Sueldo">Sueldo</option>
+                                                            <option value="Alquiler">Alquiler</option>
+                                                            <option value="Gastos Varios">Gastos Varios</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="div-container">
+                                                    <div class="div-label-input">
+                                                        <label>Nombre</label>
+                                                        <input type="text" id="input-firstname-expense" value="${paymentEdit.firstname}"/>
+                                                    </div>
+                                                    <div class="div-label-input">
+                                                        <label>Apellido</label>
+                                                        <input type="text" id="input-lastname-expense" value="${paymentEdit.lastname}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="div-container">
+                                                    <div class="div-label-input">
+                                                        <label>Fecha del Egreso</label>
+                                                        <input type="date" id="input-date-expense" value="${paymentEdit.date.split("/").reverse().join("-")}"/>
+                                                    </div>
+                                                    <div class="div-label-input">
+                                                        <label>Monto</label>
+                                                        <input type="number" id="input-amount-expense" value="${paymentEdit.amount}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="post-update-product-payment">Egreso actualizado con exito.</span>
+                                            <div class="div-btn-edit-expense">
+                                                <button class="btn-accept" id="btn-edit-accept-3">Aceptar</button>
+                                                <button class="btn-cancel" id="btn-edit-cancel-3">Cancelar</button>
+                                            </div>
+                                    `
+                                : popup.innerHTML = `
+                                            <h2>Editar Egreso</h2>
+                                            <div class="div-popup-edit-delete-expense">
+                                                <div class="div-container">
+                                                    <div class="div-label-input">
+                                                        <label>Tipo de Egreso</label>
+                                                        <select id="type-expense" disabled value="${paymentEdit.type}">
+                                                            <option value="Sueldo">Sueldo</option>
+                                                            <option value="Alquiler">Alquiler</option>
+                                                            <option value="Gastos Varios">Gastos Varios</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="div-container">
+                                                    <div class="div-label-input">
+                                                        <label>Detalle</label>
+                                                        <input type="text" id="input-detail-expense" value="${paymentEdit.detail}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="div-container">
+                                                    <div class="div-label-input">
+                                                        <label>Fecha del Egreso</label>
+                                                        <input type="date" id="input-date-expense" value="${paymentEdit.date.split("/").reverse().join("-")}"/>
+                                                    </div>
+                                                    <div class="div-label-input">
+                                                        <label>Monto</label>
+                                                        <input type="number" id="input-amount-expense" value="${paymentEdit.amount}"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <span class="post-update-product-payment">Egreso actualizado con exito.</span>
+                                            <div class="div-btn-edit-expense">
+                                                <button class="btn-accept" id="btn-edit-accept-3">Aceptar</button>
+                                                <button class="btn-cancel" id="btn-edit-cancel-3">Cancelar</button>
+                                            </div>
+                                    `;
+
+                                
+                                popup.querySelector("#input-date-expense").max = new Date().toISOString().split("T")[0];
+
+                                monthlyBalanceExpenseContainer.appendChild(popup);
+                                
+                                popup.querySelector("#btn-edit-accept-3").addEventListener("click", () => {
+                                    fetchUpdateExpense(paymentEdit);
+                                })
+
+                                const handleOutsideClick = (e) => {
+                                    if(!popup.contains(e.target)){
+                                        popup.remove();
+                                        document.removeEventListener("click", handleOutsideClick);
+                                    }
+                                }
+                                popup.querySelector("#btn-edit-cancel-3").addEventListener("click", () => {
+                                    popup.remove();
+                                    document.removeEventListener("click", handleOutsideClick);
+                                });
+                                setTimeout(() => { 
+                                    document.addEventListener("click", handleOutsideClick);
+                                }, 100);
+                            });
+                        });
+
+                        // popup delete expense
+                        document.querySelectorAll(".btn-delete-history").forEach(button => {
+                            button.addEventListener("click", (e) => {
+                                const id = Number(e.target.dataset.id);
+                                const paymentDelete = data.expensesPayments.find((pay) => pay.id === id);
+
+                                if(e.target.dataset.button !== "payment-expense"){
+                                    return;
+                                }
+
+                                const popup = document.createElement("div");
+                                popup.classList.add("popup-edit-delete-expense");
+
+                                popup.innerHTML = `
+                                    <h2>Eliminar Egreso</h2>
+                                    <div class="div-delete-expense-container">
+                                        <p>¿Esta seguro que desea eliminar el egreso?
+                                        <div class="div-delete-payment-popup">
+                                            <span>${paymentDelete.type}</span>
+                                            <span>${paymentDelete.firstname ? paymentDelete.firstname : "-"}</span>
+                                            <span>${paymentDelete.lastname ? paymentDelete.lastname : "-"}</span>
+                                            <span>${paymentDelete.detail ? paymentDelete.detail : "-"}</span>
+                                            <span>-$${paymentDelete.amount}</span>
+                                            <span>${paymentDelete.date}</span>
+                                        </div>
+                                    </div>
+                                    <span class="post-delete-product-payment">Egreso eliminado con exito.</span>
+                                    <div class="div-btn-actions-delete-products">
+                                        <button class="btn-delete">Eliminar</button>
+                                        <button class="btn-cancel">Cancelar</button>
+                                    </div>
+                                `;
+
+                                monthlyBalanceExpenseContainer.appendChild(popup);
+                                
+                                popup.querySelector(".btn-delete").addEventListener("click", () => {
+                                    fetchDeleteExpense(paymentDelete.id);
+                                });
+
+                                const handleOutsideClick = (e) => {
+                                    if(!popup.contains(e.target)){
+                                        popup.remove();
+                                        document.removeEventListener("click", handleOutsideClick);
+                                    }
+                                }
+                                popup.querySelector(".btn-cancel").addEventListener("click", () => {
+                                    popup.remove();
+                                    document.removeEventListener("click", handleOutsideClick);
+                                });
+                                setTimeout(() => { 
+                                    document.addEventListener("click", handleOutsideClick);
+                                }, 100);
+                            });
+                        });
+                    }
+
+                    const renderPaginationButtonsExpense = () => {
+                        paginationExpenseContainer.innerHTML = "";
+
+                        const totalPages = Math.ceil(filteredPayments.expensesPayments.length / paymentsPerPageExpense);
+                        const maxVisibleButtons = 7;
+
+                        const createButton = (page, text = page) => {
+                            const btn = document.createElement("button");
+                            btn.textContent = text;
+                            btn.classList.add("pagination-button");
+                            if (page === currentPage) btn.classList.add("active");
+
+                            btn.addEventListener("click", () => {
+                                currentPage = page;
+                                renderPaymentsPageExpense(currentPage);
+                                renderPaginationButtonsExpense();
+                            });
+
+                            paginationExpenseContainer.appendChild(btn);
+                        }
+
+                        // Mostrar el primer botón
+                        createButton(1);
+
+                        let startPage = Math.max(2, currentPage - 2);
+                        let endPage = Math.min(totalPages - 1, currentPage + 2);
+
+                        if (currentPage <= 4) {
+                            startPage = 2;
+                            endPage = Math.min(5, totalPages - 1);
+                        }
+
+                        if (currentPage >= totalPages - 3) {
+                            startPage = Math.max(2, totalPages - 4);
+                            endPage = totalPages - 1;
+                        }
+
+                        // Agregar puntos suspensivos si es necesario
+                        if (startPage > 2) {
+                            const dots = document.createElement("span");
+                            dots.textContent = "...";
+                            dots.classList.add("pagination-dots");
+                            paginationExpenseContainer.appendChild(dots);
+                        }
+
+                        // Agregar botones de páginas intermedias
+                        for (let i = startPage; i <= endPage; i++) {
+                            createButton(i);
+                        }
+
+                        if (endPage < totalPages - 1) {
+                            const dots = document.createElement("span");
+                            dots.textContent = "...";
+                            dots.classList.add("pagination-dots");
+                            paginationExpenseContainer.appendChild(dots);
+                        }
+
+                        // Mostrar el último botón
+                        if (totalPages > 1) {
+                            createButton(totalPages);
+                        }
+                    }
+
+                    renderPaymentsPageExpense(currentPage);
+                    renderPaginationButtonsExpense();
+                    calculateTotals();
+                    updateTotalAmount();
+
+/* *********************************************************************************** */
+
+
+                    const monthlyBalanceContainerProducts = document.querySelector(".monthly-balance-history-products-container");
+
+                    const titleDivProducts = document.createElement("div");
+                    titleDivProducts.innerHTML = `
+                        <span>Documento</span>
+                        <span>Nombre</span>
+                        <span>Apellido</span>
+                        <span>Producto</span>
+                        <span>Importe</span>
+                        <span>Modalidad</span>
+                        <span>Fecha</span>`;
+                    titleDivProducts.classList.add("product-class");                        
+                    titleDivProducts.classList.add("monthly-balance-history-title-div-2");
+                    titleDivProducts.classList.add("resize-balance-product-title")
+                    monthlyBalanceContainerProducts.appendChild(titleDivProducts);
+
+                    const paginationContainerProducts = document.createElement("div");
+                    paginationContainerProducts.classList.add("pagination-container-products");
+                    monthlyBalanceContainerProducts.appendChild(paginationContainerProducts);
+      
+                    const paymentsPerPageProducts = 30;
+                    let currentPageProducts = 1;
+
+                    const renderProductsPage = (page) => {
+                        // Limpia los productos anteriores
+                        const oldProducts = monthlyBalanceContainerProducts.querySelectorAll(".product-div");
+                        oldProducts.forEach(div => div.remove());
+
+                        // Calcular el rango
+                        const start = (page - 1) * paymentsPerPageProducts;
+                        const end = start + paymentsPerPageProducts;
+                    
+                        const productsToShow = filteredPayments.productsPayments.slice(start, end);
+
+                        productsToShow.forEach(payment => {
+                            const paymentDiv = document.createElement("div");
+                            paymentDiv.classList.add("product-class");
+                            paymentDiv.classList.add("product-div"); // para poder eliminarlos fácilmente después
+
+                            paymentDiv.innerHTML = `
+                                <span>${payment.document ? Number(payment.document).toLocaleString("es-ES") : "-"}</span>
+                                <span class="after-span" data-fulltext="${payment.firstname}">${payment.firstname}</span>
+                                <span class="after-span" data-fulltext="${payment.lastname}">${payment.lastname}</span>
+                                <span class="after-span" data-fulltext="${payment.product}">${payment.product}</span>
+                                <span>$${Number(payment.amount).toLocaleString("es-ES")}</span>
+                                <span class="after-span" data-fulltext="${payment.paymentMethod}">${payment.paymentMethod}</span>
+                                <span>${payment.date}</span>
+                                <button class="btn-edit-history" data-id="${payment.id}">Editar</button>
+                                <button class="btn-delete-history" data-id="${payment.id}" data-type="product">Eliminar</button>
+                            `;
+
+                            monthlyBalanceContainerProducts.appendChild(paymentDiv);
+                        });
+
+                        // popup edit product           
+                        document.querySelectorAll(".btn-edit-history").forEach(button => {
+                            button.addEventListener("click", (e) => {
+                                const id = Number(e.target.dataset.id);
+                                const paymentEdit = data.productsPayments.find((pay) => pay.id === id);
+
+                                const popup = document.createElement("div");
+                                popup.classList.add("popup-edit-delete-product");
+
+                                popup.innerHTML = `
+                                        <span>Editar Producto</span>
+                                        <div class="div-container">
+                                            <div>
+                                                <label>Documento</label>
+                                                <input type="number" id="input-edit-document-product" value="${paymentEdit.document}" autocomplete="off"/>
+                                            </div>
+                                            <div>
+                                                <label>Producto</label>
+                                                <input type="text" id="input-edit-title-product" value="${paymentEdit.product}" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <div class="div-container">
+                                            <div>
+                                                <label>Nombre</label>
+                                                <input type="text" id="input-edit-firstname-product" value="${paymentEdit.firstname}" autocomplete="off"/>
+                                            </div>
+                                            <div>
+                                                <label>Apellido</label>
+                                                <input type="text" id="input-edit-lastname-product" value="${paymentEdit.lastname}" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <div class="div-container">
+                                            <div>
+                                                <label>Monto</label>
+                                                <input type="number" id="input-edit-amount-product" value="${paymentEdit.amount}" autocomplete="off"/>
+                                            </div>
+                                            <div>
+                                                <label>Forma de pago</label>
+                                                <input type="text" id="input-edit-paymentMethod-product" value="${paymentEdit.paymentMethod}" autocomplete="off"/>
+                                            </div>
+                                        </div>
+                                        <span class="post-update-product-payment">Pago actualizado con exito.</span>
+                                        <div class="div-btn-edit-product">
+                                            <button class="btn-accept" id="btn-edit-accept-2">Aceptar</button>
+                                            <button class="btn-cancel" id="btn-edit-cancel-2">Cancelar</button>
+                                        </div>
+                                `;
+                                monthlyBalanceContainerProducts.appendChild(popup);
+                                
+                                popup.querySelector("#btn-edit-accept-2").addEventListener("click", () => {
+                                    fetchUpdateProductPayment(paymentEdit);
+                                })
+
+                                const handleOutsideClick = (e) => {
+                                    if(!popup.contains(e.target)){
+                                        popup.remove();
+                                        document.removeEventListener("click", handleOutsideClick);
+                                    }
+                                }
+                                popup.querySelector("#btn-edit-cancel-2").addEventListener("click", () => {
+                                    popup.remove();
+                                    document.removeEventListener("click", handleOutsideClick);
+                                });
+                                setTimeout(() => { 
+                                    document.addEventListener("click", handleOutsideClick);
+                                }, 100);
+                            });
+                        });
+
+                        // popup delete product
+                        document.querySelectorAll(".btn-delete-history").forEach(button => {
+                            button.addEventListener("click", (e) => {
+                                const type = e.target.dataset.type;
+                                if(type !== "product"){
+                                    return;
+                                }
+
+                                const id = Number(e.target.dataset.id);
+                                const paymentDelete = data.productsPayments.find((pay) => pay.id === id);
+
+                                const popup = document.createElement("div");
+                                popup.classList.add("popup-edit-delete-product");
+
+                                popup.innerHTML = `
+                                    <h2>Eliminar Producto</h2>
+                                    <p class="question-payment">¿Esta seguro que desea eliminar el pago?
+                                    <div class="div-delete-payment-popup">
+                                        <span>${paymentDelete.document}</span>
+                                        <span>${paymentDelete.firstname}</span>
+                                        <span>${paymentDelete.lastname}</span>
+                                        <span>${paymentDelete.product}</span>
+                                        <span>$${paymentDelete.amount}</span>
+                                        <span>${paymentDelete.paymentMethod}</span>
+                                        <span>${paymentDelete.date}</span>
+                                    </div>
+                                    <span class="post-delete-product-payment">Pago eliminado con exito.</span>
+                                    <div class="div-btn-actions-delete-products">
+                                        <button class="btn-delete">Eliminar</button>
+                                        <button class="btn-cancel">Cancelar</button>
+                                    </div>
+                                `;
+
+                                monthlyBalanceContainerProducts.appendChild(popup);
+                                
+                                popup.querySelector(".btn-delete").addEventListener("click", () => {
+                                    fetchDeleteProductPayment(paymentDelete.id);
+                                });
+
+                                const handleOutsideClick = (e) => {
+                                    if(!popup.contains(e.target)){
+                                        popup.remove();
+                                        document.removeEventListener("click", handleOutsideClick);
+                                    }
+                                }
+                                popup.querySelector(".btn-cancel").addEventListener("click", () => {
+                                    popup.remove();
+                                    document.removeEventListener("click", handleOutsideClick);
+                                });
+                                setTimeout(() => { 
+                                    document.addEventListener("click", handleOutsideClick);
+                                }, 100);
+                            });
+                        });
+
+                    };
+
+                    const renderPaginationButtonsProducts = () => {
+                        paginationContainerProducts.innerHTML = "";
+
+                        const totalPagesProducts = Math.ceil(filteredPayments.productsPayments.length / paymentsPerPageProducts);
+                        const createButton = (page, text = page) => {
+                            const btn = document.createElement("button");
+                            btn.textContent = text;
+                            btn.classList.add("pagination-button");
+                            if (page === currentPageProducts) btn.classList.add("active");
+
+                            btn.addEventListener("click", () => {
+                                currentPageProducts = page;
+                                renderProductsPage(currentPageProducts);
+                                // Volver a dibujar botones
+                                paginationContainerProducts.innerHTML = "";
+                                renderPaginationButtonsProducts();
+                            });
+
+                            paginationContainerProducts.appendChild(btn);
+                        }
+
+                        // Mostrar el primer botón
+                        createButton(1);
+
+                        let startPage = Math.max(2, currentPageProducts - 2);
+                        let endPage = Math.min(totalPagesProducts - 1, currentPageProducts + 2);
+
+                        if(currentPageProducts <= 4){
+                            startPage = 2;
+                            endPage = Math.min(5, totalPagesProducts - 1);
+                        }
+
+                        if (currentPageProducts >= totalPagesProducts - 3) {
+                            startPage = Math.max(2, totalPagesProducts - 4);
+                            endPage = totalPagesProducts - 1;
+                        }
+
+                        if (startPage > 2) {
+                            const dots = document.createElement("span");
+                            dots.textContent = "...";
+                            dots.classList.add("pagination-dots");
+                            paginationContainerProducts.appendChild(dots);
+                        }
+
+                        for (let i = startPage; i <= endPage; i++) {
+                            createButton(i);
+                        }
+
+                        if (endPage < totalPagesProducts - 1) {
+                            const dots = document.createElement("span");
+                            dots.textContent = "...";
+                            dots.classList.add("pagination-dots");
+                            paginationContainerProducts.appendChild(dots);
+                        }
+
+                        if (totalPagesProducts > 1) {
+                            createButton(totalPagesProducts);
+                        }
+                    };
+
+                    renderProductsPage(currentPageProducts);
+                    renderPaginationButtonsProducts();
+                    calculateTotals();
+                    updateTotalAmount();
+
+
+/*      TERMINAN LOS 3 RENDER (PAGOS, EGRESOS Y PRODUCTOS)
+************************************************************************************ */
+
+// seccion filtros
+const applyFilters = () => {
+                        if(document.getElementById("input-from").value !== "" || document.getElementById("input-to").value !== ""){
+
+                            const methodFilter = document.querySelector("#input-filter-paymentMethod").value.trim().toLowerCase();
+                            const planFilter = document.getElementById("category").value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+                            filteredPayments = {
+                                userPayments: data.userPayments.filter(payment => {
+                                    const matchesMethod = methodFilter === "" || payment.paymentMethod.toLowerCase().includes(methodFilter);
+                                    const matchesPlan = planFilter === "" || payment.plan.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(planFilter);
+                                    return matchesMethod && matchesPlan;
+                                }),
+                                productsPayments: data.productsPayments.filter(payment => {
+                                    const matchesMethod = methodFilter === "" || payment.paymentMethod.toLowerCase().includes(methodFilter);
+                                    // Los productos no tienen plan, solo se filtran por método de pago
+                                    return matchesMethod;
+                                }),
+                                expensesPayments: data.expensesPayments
+                            };
+
+                            if(planFilter !== ""){
+                                monthlyBalanceContainerProducts.style.display = "none";                                
+                            }
+                            monthlyBalanceExpenseContainer.style.display = "none";
+
+                            currentPage = 1;
+                            currentPageProducts = 1;
+                            renderPaymentsPage(currentPage);
+                            renderPaginationButtons();
+                            renderProductsPage(currentPageProducts);
+                            renderPaginationButtonsProducts();
+                            calculateTotals();
+
+                            updateTotalAmount();
+                        }
+                    };
+
+                    document.querySelector("#filter-paymentMethod").addEventListener("click", applyFilters);
+                    document.querySelector("#input-filter-paymentMethod").addEventListener("keyup", (e) => {
+                        if(e.key === "Enter"){
+                            applyFilters();
+                        }
+                    });
+                    document.querySelector("#filter-plan").addEventListener("click", applyFilters);
+
+
+                    const btnFilterProductsButton = document.getElementById("filter-products");
+                    const btnFilterMembershipButton = document.getElementById("filter-membership");
+                    const btnFilterExpensesButton = document.getElementById("filter-expenses");
+                    const btnClearFilters = document.getElementById("btn-clear-filters");
+
+                    btnFilterProductsButton.addEventListener("click", () => {
+                        monthlyBalanceContainerProducts.style.display = "flex";
+                        monthlyBalanceContainerProducts.style.marginTop = "75px";
+                        monthlyBalanceContainer.style.display = "none";
+                        monthlyBalanceExpenseContainer.style.display = "none";
+                        if(document.getElementById("btn-close-history-2").style.display === "block"){
+                            document.getElementById("title-monthly-balance").textContent = "Pagos de Productos";
+                        }
+    
+                        document.querySelector(".total-amount").innerHTML = `Total: <strong>$${Number(paymentsProductsAmount).toLocaleString("es-ES")}</strong>`;
+                        
+                        if(document.getElementById("input-from").value === "" || document.getElementById("input-to").value === ""){
+                            document.querySelector(".total-amount").innerHTML = `Total: <strong>$0</strong>`;
+                        }
+                    });
+
+                    btnFilterMembershipButton.addEventListener("click", () => {
+                        monthlyBalanceContainer.style.display = "flex";
+                        monthlyBalanceContainerProducts.style.display = "none";
+                        monthlyBalanceExpenseContainer.style.display = "none";
+                        if(document.getElementById("btn-close-history-2").style.display === "block"){
+                            document.getElementById("title-monthly-balance").textContent = "Pagos de Abonos";
+                        }
+                        
+                        document.querySelector(".total-amount").innerHTML = `Total: <strong>$${Number(paymentsAmount).toLocaleString("es-ES")}</strong>`;
+
+                    });
+
+                    btnFilterExpensesButton.addEventListener("click", () => {
+                        monthlyBalanceExpenseContainer.style.display = "flex";
+                        monthlyBalanceExpenseContainer.style.marginTop = "75px";
+                        monthlyBalanceContainer.style.display = "none";
+                        monthlyBalanceContainerProducts.style.display = "none";
+                        if(document.getElementById("btn-close-history-2").style.display === "block"){
+                            document.getElementById("title-monthly-balance").textContent = "Pagos de Egresos";
+                        }
+                        
+                        document.querySelector(".total-amount").innerHTML = `Total: <strong>-$${Number(paymentsExpensesAmount).toLocaleString("es-ES")}</strong>`;
+                        
+                        if(document.getElementById("input-from").value === "" || document.getElementById("input-to").value === ""){
+                            document.querySelector(".total-amount").innerHTML = `Total: <strong>$0</strong>`;
+                        }
+                    });
+
+                    btnClearFilters.addEventListener("click", () => {
+                        if(document.getElementById("input-from").value !== "" || document.getElementById("input-to").value !== ""){
+
+                            monthlyBalanceContainer.style.display = "flex";
+                            monthlyBalanceContainerProducts.style.display = "flex";
+                            monthlyBalanceContainerProducts.style.marginTop = "25px";
+                            monthlyBalanceExpenseContainer.style.display = "flex";
+                            monthlyBalanceExpenseContainer.style.marginTop = "25px";
+                            if(document.getElementById("btn-close-history-2").style.display === "block"){
+                                document.getElementById("title-monthly-balance").textContent = "Todos los Pagos";
+                            }
+
+                            document.querySelector("#input-filter-paymentMethod").value = "";
+                            document.querySelector("#category").value = "";
+                            filteredPayments = {
+                                userPayments: data.userPayments,
+                                expensesPayments: data.expensesPayments,
+                                productsPayments: data.productsPayments
+                            };
+                            currentPage = 1;
+                            currentPageProducts = 1;
+                            renderPaymentsPage(currentPage);
+                            renderPaginationButtons();
+                            renderPaymentsPageExpense(currentPageExpense);
+                            renderPaginationButtonsExpense();
+                            renderProductsPage(currentPageProducts);
+                            renderPaginationButtonsProducts();
+                            calculateTotals();
+                            updateTotalAmount();
+                        }
+                    });
+
+                    document.querySelector(".btn-close-history-2").addEventListener("click", () => {
+                        paymentsAmount = 0;
+                        paymentsExpensesAmount = 0;
+                        paymentsProductsAmount = 0;
+                        monthlyBalanceContainer.innerHTML = "";
+                        monthlyBalanceContainerProducts.innerHTML = "";
+                        monthlyBalanceExpenseContainer.innerHTML = "";
+                        document.getElementById("input-filter-paymentMethod").value = "";
+                        document.getElementById("category").value = "";
+                        document.getElementById("input-from").value = "";
+                        document.getElementById("input-to").value = "";
+                        document.querySelector(".total-amount").innerHTML = `Total: <strong>$0</strong>`;
+                        document.querySelector(".earnings-amount").style.display = "none";
+                        document.querySelector(".expenses-amount").style.display = "none";
+                        document.getElementById("btn-close-history-2").style.display = "none";
+                        document.getElementById("title-monthly-balance").textContent = "";
+                    });
+                }
+            }catch(err){
+                console.error("Error al obtener el balance mensual.", err);
+            }
+        }
+
+        const fetchCreateProductPayment = async () => {
+            try{
+                const response = await fetch(`http://localhost:${port}/createProductPayment`, {
+                    method: "POST",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({
+                        document: document.getElementById("input-document-product").value,
+                        product:  document.getElementById("input-title-product").value,
+                        firstname:  document.getElementById("input-firstname-product").value.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" "),
+                        lastname:  document.getElementById("input-lastname-product").value.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" "),
+                        amount:  document.getElementById("input-amount-product").value,
+                        paymentMethod:  document.getElementById("input-paymentMethod-product").value.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" "),
+                        date: new Date(document.getElementById("input-date").value).toISOString().split("T")[0].split("-").reverse().join("/"),
+                    })
+                })
+                if(response.ok){
+                    document.querySelector(".post-create-product-payment").style.display = "block";
+                    setTimeout(async () => {
+                        document.querySelector(".post-create-product-payment").style.display = "none";
+                        document.getElementById("input-document-product").value = "";
+                        document.getElementById("input-title-product").value = "";
+                        document.getElementById("input-firstname-product").value = "";
+                        document.getElementById("input-lastname-product").value = "";
+                        document.getElementById("input-amount-product").value = "";
+                        document.getElementById("input-paymentMethod-product").value = "";
+                        document.querySelector(".create-product-payment").style.display = "none";
+                    }, 2000);
+                }
+            }catch(err){
+                console.error("Error al crear el pago del producto.");
+            }
+        }
+
+        const fetchDeleteProductPayment = async (paymentId) => {
+            try{
+                const response = await fetch(`http://localhost:${port}/deleteProductPayment`, {
+                    method: "DELETE",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({
+                        id: paymentId
+                    })
+                });
+                if(response.ok){
+                    document.querySelector(".post-delete-product-payment").style.setProperty("display", "block", "important");
+                    setTimeout(async () => {
+                        document.querySelector(".post-delete-product-payment").style.setProperty("display", "none", "important");
+                        document.querySelector(".popup-edit-delete-product").remove();
+                        if(document.querySelector(".monthly-balance-history-products-container").value !== ""){
+                            await fetchMonthlyBalance();
+                        }
+                    }, 2000);
+                }
+            }catch(err){
+                console.error("Error al eliminar el pago del producto");
+            }
+        }
+    
+        const fetchUpdateProductPayment = async (payment) => {
+            try{
+                const response = await fetch(`http://localhost:${port}/updateProductPayment`, {
+                    method: "POST",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({
+                        id: payment.id,
+                        document: document.getElementById("input-edit-document-product").value,
+                        firstname: document.getElementById("input-edit-firstname-product").value,
+                        lastname: document.getElementById("input-edit-lastname-product").value,
+                        product: document.getElementById("input-edit-title-product").value,
+                        amount: document.getElementById("input-edit-amount-product").value,
+                        paymentMethod: document.getElementById("input-edit-paymentMethod-product").value
+                    })
+                });
+                if(response.ok){
+                    document.querySelector(".post-update-product-payment").style.setProperty("display", "block", "important");
+                    setTimeout(async () => {
+                        document.querySelector(".post-update-product-payment").style.setProperty("display", "none", "important");
+                        document.querySelector(".popup-edit-delete-product").remove();
+                        if(document.querySelector(".monthly-balance-history-products-container").value !== ""){
+                            await fetchMonthlyBalance();
+                        }
+                    }, 2000);
+                }
+            }catch(err){
+                console.error("Error al actualizar el pago del producto.");
+            }
+        }
+
+        const fetchCreateExpense = async () => {
+            try{
+                const response = await fetch(`http://localhost:${port}/createExpense`, {
+                    method: "POST",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({
+                        type: document.getElementById("type-expense").value,
+                        firstname: document.getElementById("input-firstname-expense").value.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" "),
+                        lastname: document.getElementById("input-lastname-expense").value.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" "),
+                        detail: document.getElementById("input-detail-expense").value,
+                        amount: document.getElementById("input-amount-expense").value,
+                        date: new Date(document.getElementById("input-date-expense").value).toISOString().split("T")[0].split("-").reverse().join("/"),
+                    })
+                })
+                if(response.ok){
+                    document.querySelector(".post-create-expense").style.display = "block";
+                    setTimeout(() => {
+                        document.querySelector(".post-create-expense").style.display = "none";
+                        document.getElementById("type-expense").value = "";
+                        document.getElementById("input-firstname-expense").value = "";
+                        document.getElementById("input-lastname-expense").value = "";
+                        document.getElementById("input-detail-expense").value = "";
+                        document.getElementById("input-amount-expense").value = "";
+                        document.getElementById("input-date-expense").value = new Date().toISOString().split("T")[0];
+                        document.querySelector(".create-expense-container").style.display = "none";
+                    }, 2000);
+                }
+            }catch(err){
+                console.error("Error al agregar el egreso.");
+            }
+        }
+
+        const fetchDeleteExpense = async (expenseId) => {
+            try{
+                const response = await fetch(`http://localhost:${port}/deleteExpense`, {
+                    method: "DELETE",
+                    headers: {"Content-Type":"application/json"},
+                    body: JSON.stringify({
+                        id: expenseId
+                    })
+                })
+                if(response.ok){
+                    document.querySelector(".post-delete-product-payment").style.setProperty("display", "block", "important");
+                    setTimeout(async () => {
+                        document.querySelector(".post-delete-product-payment").style.setProperty("display", "none", "important");
+                        document.querySelector(".popup-edit-delete-expense").remove();
+                        if(document.querySelector(".monthly-balance-history-expense-container").value !== ""){
+                            await fetchMonthlyBalance();
+                        }
+                    }, 2000);
+                }
+            }catch(err){
+                console.error("Error al eliminar el egreso.");
+            }
+        }
+
+        const fetchUpdateExpense = async (expense) => {
+            const popup = document.querySelector(".popup-edit-delete-expense");
+            try{
+                const response = await fetch(`http://localhost:${port}/updateExpense`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        id: expense.id,
+                        type: popup.querySelector("#type-expense")?.value || expense.type,
+                        firstname: popup.querySelector("#input-firstname-expense")?.value.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ") || "",
+                        lastname: popup.querySelector("#input-lastname-expense")?.value.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ") || "",
+                        detail: popup.querySelector("#input-detail-expense")?.value || "",
+                        amount: popup.querySelector("#input-amount-expense")?.value || "",
+                        date: new Date(popup.querySelector("#input-date-expense")?.value).toISOString().split("T")[0].split("-").reverse().join("/"),
+                    })
+                });
+                if(response.ok){
+                    popup.querySelector(".post-update-product-payment").style.setProperty("display", "block", "important");
+                    setTimeout(async () => {
+                        popup.querySelector(".post-update-product-payment").style.setProperty("display", "none", "important");
+                        popup.remove();
+                        if (document.querySelector(".monthly-balance-history-expense-container").value !== "") {
+                            await fetchMonthlyBalance();
+                        }
+                    }, 2000);
+                }
+            }catch(err){
+                console.error("Error al agregar el egreso.");
+            }
+        };
+     
+        document.querySelector(".btn-back").addEventListener("click", () => {
+            window.location.href = "/adminPanel";
+        });
+
+    </script>
+</body>
+</html>

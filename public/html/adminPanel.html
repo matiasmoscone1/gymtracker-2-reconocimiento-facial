@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/png" href="../images/icon.png">
+    <title>GYMTRACKER</title>
+</head>
+<body>
+    <div>
+        <div class="admin-filter-create-container">
+            <div class="btn-admin-create-container">
+                <button id="btn-create-user">Crear Usuario</button>
+            </div>
+        <div class="admin-filter-container">
+            <div class="filter-container">
+                <label>Filtrar por<strong>&nbsp;Documento</strong></label>
+                <div class="input-button-container">
+                    <input id="filter-document"/>
+                    <button id="btn-filter-document">Filtrar</button>
+                </div>
+            </div>
+            <div class="filter-container">
+                <label>Filtrar por<strong>&nbsp;Apellido</strong></label>
+                <div class="input-button-container">
+                    <input id="filter-lastname"/>
+                    <button id="btn-filter-lastname">Filtrar</button>
+                </div>    
+            </div>
+            <div class="filter-container">
+                <label>Filtrar por<strong>&nbsp;Plan</strong></label>
+                <div class="input-button-container">
+                    <input id="filter-plan"/>
+                    <button id="btn-filter-plan">Filtrar</button>
+                </div>
+            </div>
+        </div>
+        <button class="btn-billing">Facturación</button>
+        <button class="btn-clear-filters">Limpiar Filtros</button>
+        <button class="btn-back"></button>
+        </div>
+        <span class="active-users">Usuarios activos: </span>
+        <span class="total-users">Usuarios totales: </span>
+        <div class="filter-days">
+            <button id="btn-inactive">Inactivos</button>            
+            <button id="btn-0-10">0-10</button>
+            <button id="btn-10-90">10-90</button>
+            <button id="btn-90-360">90-360</button>
+        </div>
+        <div class="filter-age">
+            <button id="btn-25">-25</button>
+            <button id="btn-25-50">25-50</button>
+            <button id="btn-50">+50</button>
+        </div>
+        <div class="admin-table-users">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Documento</th>
+                        <th>Edad</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th>Plan</th>
+                        <th>Periodo</th>
+                        <th>Vencimiento</th>
+                        <th>Dias</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                </tbody>
+            </table>
+            <div class="bottom-border"></div>
+        </div>
+        <div class="pagination-container"></div>
+    </div>
+
+    <script>
+        let port = "";
+        let data;
+        document.addEventListener("DOMContentLoaded", async () => {
+
+            await getPort();
+
+            await fetchGetUsers();
+
+            renderTable(getPaginatedUsers(data.users));
+            renderPagination(data.users);
+
+            const functionFilterDocument = () => {
+                const filterDoc = document.getElementById("filter-document").value;
+                const filteredUsers = data.users.filter((user) => Number(user.document) === Number(filterDoc));
+                renderTable(filteredUsers);
+            }
+            document.getElementById("btn-filter-document").addEventListener("click", () => functionFilterDocument());
+            document.getElementById("filter-document").addEventListener("keyup", (e) => {
+                if(e.key === "Enter"){
+                    functionFilterDocument();
+                }
+            });
+
+            const functionFilterLastname = () => {
+                const filterLastname = document.getElementById("filter-lastname").value.toLowerCase();
+                const normalizeText = (text) => text
+                    ? text.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
+                    : "";
+                const normalizedFilterLastname = normalizeText(filterLastname);
+                const filteredUsers = data.users.filter(user => {
+                    const lastNames = normalizeText(user.lastname).split(" ");
+                    return lastNames.some(lastname => lastname.includes(normalizedFilterLastname)) ||
+                        normalizeText(user.lastname).includes(normalizedFilterLastname);
+                });
+                renderTable(getPaginatedUsers(filteredUsers));
+                renderPagination(filteredUsers);
+            }
+            document.getElementById("btn-filter-lastname").addEventListener("click", () => functionFilterLastname());
+            document.getElementById("filter-lastname").addEventListener("keyup", (e) => {
+                if(e.key === "Enter"){
+                    functionFilterLastname();
+                }
+            });
+
+            const functionFilterPlan = () => {
+                const filterPlan = document.getElementById("filter-plan").value.trim();
+                const normalizeText = (text) => text
+                    ? text.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
+                    : "";
+                const normalizedFilterPlan = normalizeText(filterPlan);
+                const filteredUsers = data.users.filter(user => 
+                    normalizeText(user.plan).includes(normalizedFilterPlan)
+                );
+                renderTable(getPaginatedUsers(filteredUsers));
+                renderPagination(filteredUsers);
+            }
+            document.getElementById("btn-filter-plan").addEventListener("click", () => functionFilterPlan());
+            document.getElementById("filter-plan").addEventListener("keyup", (e) => {
+                if(e.key === "Enter"){
+                    functionFilterPlan();
+                }
+            });
+
+            document.getElementById("btn-inactive").addEventListener("click", () => {
+                const filteredUsers = data.users.filter((user) => user.paidDays < 0);
+                renderTable(getPaginatedUsers(filteredUsers));
+                renderPagination(filteredUsers);
+            });
+            document.getElementById("btn-0-10").addEventListener("click", () => {
+                const filteredUsers = data.users.filter((user) => user.paidDays >= 0 && user.paidDays <= 10);
+                renderTable(getPaginatedUsers(filteredUsers));
+                renderPagination(filteredUsers);
+            });
+            document.getElementById("btn-10-90").addEventListener("click", () => {
+                const filteredUsers = data.users.filter((user) => user.paidDays > 10 && user.paidDays < 91);
+                renderTable(getPaginatedUsers(filteredUsers));
+                renderPagination(filteredUsers);
+            });
+            document.getElementById("btn-90-360").addEventListener("click", () => {
+                const filteredUsers = data.users.filter((user) => user.paidDays > 90);
+                renderTable(getPaginatedUsers(filteredUsers));
+                renderPagination(filteredUsers);
+            });
+            document.getElementById("btn-25").addEventListener("click", () => {
+                const filteredUsers = data.users.filter((user) => user.age < 25);
+                renderTable(getPaginatedUsers(filteredUsers));
+                renderPagination(filteredUsers);
+            });
+            document.getElementById("btn-25-50").addEventListener("click", () => {
+                const filteredUsers = data.users.filter((user) => user.age >= 25 && user.age <= 50);
+                renderTable(getPaginatedUsers(filteredUsers));
+                renderPagination(filteredUsers);
+            });
+            document.getElementById("btn-50").addEventListener("click", () => {
+                const filteredUsers = data.users.filter((user) => user.age > 50);
+                renderTable(getPaginatedUsers(filteredUsers));
+                renderPagination(filteredUsers);
+            });
+
+            document.querySelector(".btn-clear-filters").addEventListener("click", () => {
+                renderTable(getPaginatedUsers(data.users));
+                renderPagination(data.users);
+            });
+
+            const activeUsers = data.users.filter((user) => user.paidDays >= 0);
+            document.querySelector(".active-users").innerHTML = "Usuarios activos: " + `<strong>${Number(activeUsers.length).toLocaleString("es-ES", { useGrouping: true })}</strong>`;
+            document.querySelector(".total-users").innerHTML = "Usuarios totales: " + `<strong>${Number(data.users.length).toLocaleString("es-ES", { useGrouping: true })}</strong>`;
+            
+            document.querySelector(".btn-back").addEventListener("click", () => {
+                window.location.href = "/";
+            });
+
+        });
+
+        let currentPage = 1;
+        const usersPerPage = 100;
+        const maxVisiblePages = 5;
+
+        const renderPagination = (usersArray) => {
+            const totalPages = Math.ceil(usersArray.length / usersPerPage);
+            const $paginationContainer = document.querySelector(".pagination-container");
+            $paginationContainer.innerHTML = "";
+
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+            if(endPage - startPage + 1 < maxVisiblePages){
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+            if(startPage > 1){
+                const firstButton = document.createElement("button");
+                firstButton.textContent = 1;
+                firstButton.classList.add("pagination-button");
+                $paginationContainer.appendChild(firstButton);
+                firstButton.addEventListener("click", () => {
+                    currentPage = 1;
+                    renderTable(getPaginatedUsers(usersArray));
+                    renderPagination(usersArray);
+                });
+                if(startPage > 2){
+                    const ellipsis1 = document.createElement("button");
+                    ellipsis1.textContent = "...";
+                    ellipsis1.style.backgroundColor = "#FFFFFF";
+                    ellipsis1.style.border = "none";
+                    ellipsis1.style.fontWeight = "600";
+                    $paginationContainer.appendChild(ellipsis1);
+                    ellipsis1.addEventListener("click", () => {
+                        currentPage = startPage - 1;
+                        renderTable(getPaginatedUsers(usersArray));
+                        renderPagination(usersArray);
+                    });
+                }             
+            }
+
+            for(let i = startPage; i <= endPage; i++){
+                const button = document.createElement("button");
+                button.textContent = i;
+                button.classList.add("pagination-button");
+                if(i === currentPage){
+                    button.classList.add("active");
+                }
+                $paginationContainer.appendChild(button);
+                button.addEventListener("click", (e) => {
+                    currentPage = i;
+                    renderTable(getPaginatedUsers(usersArray));
+                    renderPagination(usersArray);
+                });
+            }
+
+            if(endPage < totalPages){
+                if(endPage < totalPages - 1){
+                    const ellipsis2 = document.createElement("button");
+                    ellipsis2.textContent = "...";
+                    ellipsis2.style.backgroundColor = "#FFFFFF";
+                    ellipsis2.style.border = "none";
+                    ellipsis2.style.fontWeight = "600";
+                    $paginationContainer.appendChild(ellipsis2);
+                    ellipsis2.addEventListener("click", () => {
+                        currentPage = endPage + 1;
+                        renderTable(getPaginatedUsers(usersArray));
+                        renderPagination(usersArray);
+                    });
+                }
+                const lastButton = document.createElement("button");
+                lastButton.textContent = totalPages;
+                lastButton.classList.add("pagination-button");
+                $paginationContainer.appendChild(lastButton);
+                lastButton.addEventListener("click", () => {
+                    currentPage = totalPages;
+                    renderTable(getPaginatedUsers(usersArray));
+                    renderPagination(usersArray);
+                });
+            }  
+        }
+        
+        const getPaginatedUsers = (usersArray) => {
+            const start = (currentPage - 1) * usersPerPage;
+            const end = start + usersPerPage;
+            return usersArray.slice(start, end);
+        };
+
+        const renderTable = (users) => {
+            const $tbody = document.getElementById("table-body");
+            $tbody.innerHTML = "";
+
+            users.map((user) => {
+                const row = document.createElement("tr");
+                row.setAttribute("data-user-id", user.id);
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.firstname}</td>
+                    <td>${user.lastname}</td>
+                    <td>${Number(user.document).toLocaleString("es-ES")}</td>
+                    <td>${user.age}</td>
+                    <td>${user.email}</td>
+                    <td>${user.phone}<a class="a-send-whatsapp" href="https://wa.me/${user.phone}" target="_blank" rel="noopener noreferrer">💬</a></td>
+                    <td>${user.plan}</td>
+                    <td>${user.term}</td>
+                    <td>${user.expirationDate}</td>
+                    <td class="color-days">${user.paidDays}</td>`;
+                $tbody.appendChild(row);
+                
+                if(user.paidDays < 0){
+                    row.querySelector(".color-days").style.backgroundColor = "#ff9999";
+                }else if(user.paidDays >= 0 && user.paidDays <= 10){
+                    row.querySelector(".color-days").style.backgroundColor = "#ffcc99";
+                }else if(user.paidDays > 10){
+                    row.querySelector(".color-days").style.backgroundColor = "#ccffcc";
+                }
+
+                row.addEventListener("click", () => {
+                    const userId = row.getAttribute("data-user-id");
+                    window.location.href = `/updateUser?userId=${userId}`;
+                });
+
+                const whatsappLink = row.querySelector(".a-send-whatsapp");
+
+                whatsappLink.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                });
+
+                row.querySelector(".a-send-whatsapp").addEventListener("mouseenter", () => {
+                    row.classList.add("whatsapp-hover");
+                });
+                row.querySelector(".a-send-whatsapp").addEventListener("mouseleave", () => {
+                    row.classList.remove("whatsapp-hover");
+                });
+            });
+            document.querySelectorAll(".admin-filter-create-container input").forEach(input => input.value = "");
+        }
+
+        const getPort = async () => {
+            try{
+                const response = await fetch("public/html/port.txt");
+                port = await response.text();
+            }catch(err){
+                console.error("Error al cargar el archivo.", err);
+            }
+        };
+
+        const fetchGetUsers = async () => {
+            try{
+                const response = await fetch(`http://localhost:${port}/getUser`);
+                data = await response.json();
+            }catch(err){
+                console.error("Error al cargar todos los usuarios.", err);
+            }
+        }
+
+        document.getElementById("btn-create-user").addEventListener("click", () => {
+            window.location.href = "/createUser";
+        });
+
+        document.querySelector(".btn-billing").addEventListener("click", () => {
+            window.location.href = "/billing";
+        });
+    
+    </script>
+
+</body>
+</html>

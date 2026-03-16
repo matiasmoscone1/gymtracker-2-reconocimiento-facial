@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/png" href="../images/icon.png">
+    <title>GYMTRACKER</title>
+</head>
+<body>
+
+    <h2>Acérquese a la camara</h2>
+
+    <video id="video" width="720" height="560" autoplay muted></video>
+
+    <div>
+        
+    </div>
+
+    <script>
+        const video = document.getElementById("video");
+
+        async function startCamera() {
+            try{
+                const stream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: "user",   // cámara frontal en celular
+                    width: { ideal: 720 },
+                    height: { ideal: 560 }
+                },
+                audio: false
+                });
+
+                video.srcObject = stream;
+
+            }catch (err) {
+                console.error("No se pudo acceder a la cámara:", err);
+                alert("Permite el acceso a la cámara en el navegador.");
+            }
+        }
+        startCamera();
+        </script>
+
+</body>
+</html>
