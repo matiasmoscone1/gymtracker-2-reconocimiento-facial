@@ -201,6 +201,8 @@
             
             await getPort();
 
+            localStorage.clear();
+
             document.getElementById("type-expense").selectedIndex = -1;
 
             document.getElementById("btn-search-user").addEventListener("click", () => {

@@ -1,4 +1,5 @@
-const https = require("https");
+/*const https = require("https");*/
+const http = require("http");
 const path = require("path");
 const fs = require("fs");
 const fsPromises = require("fs").promises;
@@ -6,12 +7,13 @@ const process = require("process");
 const { htmlController } = require("./controllers/htmlController");
 const { adminController } = require("./controllers/adminController");
 
+/*
 const options = {
     key: fs.readFileSync("key.pem"),
     cert: fs.readFileSync("cert.pem")
-};
+};*/
 
-const server = https.createServer(options, (req, res) => {
+const server = http.createServer(/*options,*/ (req, res) => {
     if(req.url.startsWith("/css")){
         htmlController.css(req, res);
     }
@@ -48,6 +50,38 @@ const server = https.createServer(options, (req, res) => {
             res.writeHead(200, {"Content-Type":"image/jpg"});
             res.end(data);
         })
+    }
+    if(req.url.startsWith("/models")){
+        const filePath = path.join(__dirname, req.url);
+    
+        fs.readFile(filePath, (err, data) => {
+            if(err){
+                res.writeHead(404, {"Content-Type":"text/plain"});
+                res.end("Modelo no encontrado");
+                return;
+            }
+    
+            res.writeHead(200);
+            res.end(data);
+        });
+    
+        return;
+    }
+    if(req.url === "/face-api.min.js"){
+        const filePath = path.join(__dirname, "face-api.min.js");
+    
+        fs.readFile(filePath, (err, data) => {
+            if(err){
+                res.writeHead(404, {"Content-Type":"text/plain"});
+                res.end("JS no encontrado");
+                return;
+            }
+    
+            res.writeHead(200, {"Content-Type":"application/javascript"});
+            res.end(data);
+        });
+    
+        return;
     }
     const url = new URL(req.url, `https://${req.headers.host}`);
     const pathname = url.pathname;
@@ -336,14 +370,14 @@ const checkAndRunClearPayments = async () => {
 
 checkAndRunClearPayments();
 
-//let PORT;
-const PORT = 3000;
+let PORT;
+/*const PORT = 5000;*/
 
 
-server.listen(PORT, "0.0.0.0", () => {
-    //PORT = server.address().port;
-    //fs.writeFileSync("port.txt", PORT.toString());
-    //fs.writeFileSync(path.join(__dirname, "/public/html/port.txt"), PORT.toString());
+server.listen(PORT,  /*"0.0.0.0",*/ () => {
+    PORT = server.address().port;
+    fs.writeFileSync("port.txt", PORT.toString());
+    fs.writeFileSync(path.join(__dirname, "/public/html/port.txt"), PORT.toString());
 
         const width = process.stdout.columns || 80;
         const height = process.stdout.rows || 24;

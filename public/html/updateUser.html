@@ -156,6 +156,8 @@
             await getPort();
             await fetchGetUpdateUser();
 
+            localStorage.clear();
+
             document.getElementById("input-firstname").value = user.firstname;
             document.getElementById("input-lastname").value = user.lastname;
             document.getElementById("input-document").value = user.document;

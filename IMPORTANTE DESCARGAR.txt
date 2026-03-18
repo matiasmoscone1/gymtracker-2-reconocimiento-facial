@@ -1,0 +1,13 @@
+
+
+
+
+	npm install face-api.js
+
+
+Debo guardar el face-api.min.js en public y chequear que se importe correctamente faceapi
+
+
+
+
+

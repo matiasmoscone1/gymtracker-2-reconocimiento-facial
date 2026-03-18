@@ -46,6 +46,8 @@
             $inputDocument.addEventListener("input", (e) => {
                 documentValue = e.target.value;
             });
+
+            localStorage.clear();
         
             await getPort();
             document.addEventListener("keyup", (e) => {

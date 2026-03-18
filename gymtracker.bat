@@ -34,7 +34,7 @@ set /p PORT=<port.txt
 
 REM Abrir Google Chrome en el puerto correspondiente
 
-start chrome https://localhost:%PORT%
+start chrome http://localhost:%PORT%
 
 REM Esperar hasta que se cierre el navegador (en este caso, Google Chrome)
 

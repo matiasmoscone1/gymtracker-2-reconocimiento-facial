@@ -88,6 +88,8 @@
 
             await fetchGetUsers();
 
+            localStorage.clear();
+
             renderTable(getPaginatedUsers(data.users));
             renderPagination(data.users);
 
@@ -295,7 +297,7 @@
                     <td>${Number(user.document).toLocaleString("es-ES")}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>
-                    <td>${user.phone}<a class="a-send-whatsapp" href="https://wa.me/${user.phone}" target="_blank" rel="noopener noreferrer">💬</a></td>
+                    <td>${user.phone}<a class="a-send-whatsapp" href="http://wa.me/${user.phone}" target="_blank" rel="noopener noreferrer">💬</a></td>
                     <td>${user.plan}</td>
                     <td>${user.term}</td>
                     <td>${user.expirationDate}</td>

@@ -1,0 +1,39 @@
+{
+  "lastUpdated": "17/03/2026",
+  "lastId": 5,
+  "users": [
+    {
+      "id": 5,
+      "firstname": "Matias",
+      "lastname": "Moscone",
+      "document": "39422360",
+      "email": "matiasmoscone@gmail.com",
+      "phone": "+5493517961653",
+      "age": "29",
+      "plan": "Musculación",
+      "term": "1 Mes",
+      "weeklyFrequency": 3,
+      "totalClasses": 12,
+      "remainingClasses": 12,
+      "accumulatorDays": 0,
+      "lastUpdate": "17/03/2026",
+      "lastDayUpdate": "17/03/2026",
+      "initialDate": "17/03/2026",
+      "expirationDate": "16/04/2026",
+      "paidDays": 30,
+      "paymentHistory": [
+        {
+          "id": 1773774194622,
+          "plan": "Musculación",
+          "term": "1 Mes",
+          "amount": "29000",
+          "paymentMethod": "Transferencia",
+          "initialDate": "17/03/2026",
+          "expirationDate": "16/04/2026"
+        }
+      ]
+    }
+  ],
+  "expenses": [],
+  "productsPaymentHistory": []
+}

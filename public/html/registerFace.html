@@ -7,25 +7,54 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="icon" type="image/png" href="../images/icon.png">
     <title>GYMTRACKER</title>
+
+    <style>
+        .video-container {
+            position: relative;
+            width: 720px;
+            height: 560px;
+        }
+
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+        /*    transform: scaleX(-1);*/
+        }
+
+        canvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }    
+
+    </style>
 </head>
 <body>
 
-    <h2>Acérquese a la camara</h2>
-
-    <video id="video" width="720" height="560" autoplay muted></video>
-
-    <div>
-        
+    <div class="video-container">
+        <video id="video" width="720" height="560" autoplay muted></video>
     </div>
+    
 
+    <script src="/face-api.min.js"></script>
     <script>
         const video = document.getElementById("video");
+
+        Promise.all([
+            faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
+            faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
+            faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
+/*            faceapi.nets.tnyFaceDetector.loadFromUri("/models"),*/
+        ]).then(startCamera);
+
 
         async function startCamera() {
             try{
                 const stream = await navigator.mediaDevices.getUserMedia({
                 video: {
-                    facingMode: "user",   // cámara frontal en celular
+                    /*facingMode: "user",*/   // cámara frontal en celular
                     width: { ideal: 720 },
                     height: { ideal: 560 }
                 },
@@ -33,13 +62,74 @@
                 });
 
                 video.srcObject = stream;
+                video.play();
 
             }catch (err) {
                 console.error("No se pudo acceder a la cámara:", err);
                 alert("Permite el acceso a la cámara en el navegador.");
             }
         }
-        startCamera();
+/*        startCamera();*/
+
+        video.addEventListener("loadedmetadata", () => {
+
+        const canvas = faceapi.createCanvasFromMedia(video);
+        document.querySelector(".video-container").append(canvas);
+
+        const displaySize = {
+            width: video.videoWidth,
+            height: video.videoHeight
+        };
+
+        faceapi.matchDimensions(canvas, displaySize);
+
+        let savedDescriptor = false;
+
+        setInterval(async () => {
+
+            const detection = await faceapi
+            .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+            .withFaceLandmarks()
+            .withFaceDescriptor();
+
+            if(!detection) return;
+
+            const resizedDetection = faceapi.resizeResults(detection, displaySize);
+
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+
+            const score = detection.detection.score;
+
+            if(score > 0.9 && !savedDescriptor){
+
+                const descriptor = Array.from(detection.descriptor);
+
+                localStorage.setItem("faceDescriptor", JSON.stringify(descriptor));
+
+                savedDescriptor = true;
+                console.log("FACE DESCRIPTOR:", savedDescriptor);
+                window.location.href = "/createUser";
+            }
+
+            const box = resizedDetection.detection.box;
+
+            const padding = 40;
+
+            const newBox = {
+                x: box.x - padding/2,
+                y: box.y - padding/2,
+                width: box.width + padding,
+                height: box.height + padding
+            };
+
+            new faceapi.draw.DrawBox(newBox).draw(canvas);
+            faceapi.draw.drawFaceLandmarks(canvas, resizedDetection);
+
+        }, 100);
+        });
+
+        
         </script>
 
 </body>

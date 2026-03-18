@@ -187,6 +187,7 @@ adminController.adminCreateUser = (req, res) => {
                     age: newUser.age,
                     plan: newUser.plan,
                     term: newUser.term,
+                    faceDescriptor: newUser.faceDescriptor,
                     weeklyFrequency: newUser.weeklyFrequency,
                     totalClasses: newUser.totalClasses,
                     remainingClasses: newUser.remainingClasses,

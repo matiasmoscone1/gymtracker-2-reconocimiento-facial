@@ -106,6 +106,7 @@
             age: null,
             plan: "",
             term: null,
+            faceDescriptor: null,
             weeklyFrequency: null
         }
 
@@ -129,6 +130,7 @@
             }
         });
 
+    
         document.addEventListener("DOMContentLoaded", async () => {
 
             document.getElementById("input-date").value = new Date().toISOString().split("T")[0];
@@ -136,11 +138,51 @@
 
             await getPort();
 
+            const savedForm = JSON.parse(localStorage.getItem("createUserForm"));
+
+            if(savedForm){
+
+                document.getElementById("input-firstname").value = savedForm.firstname || "";
+                document.getElementById("input-lastname").value = savedForm.lastname || "";
+                document.getElementById("input-document").value = savedForm.document || "";
+                document.getElementById("input-email").value = savedForm.email || "";
+                document.getElementById("input-phone").value = savedForm.phone || "";
+                document.getElementById("input-age").value = savedForm.age || "";
+                document.getElementById("input-date").value = savedForm.date || "";
+                document.getElementById("input-plan").value = savedForm.plan || "";
+                document.getElementById("select-term").value = savedForm.term || "";
+                document.getElementById("select-frequency").value = savedForm.weeklyFrequency || "";
+                document.getElementById("input-amount").value = savedForm.amount || "";
+                document.getElementById("input-paymentMethod").value = savedForm.paymentMethod || "";
+            }
+
+
             document.querySelector(".btn-scan-face").addEventListener("click", () => {
-                console.log("asd")
+                const formData = {
+                    firstname: document.getElementById("input-firstname").value,
+                    lastname: document.getElementById("input-lastname").value,
+                    document: document.getElementById("input-document").value,
+                    email: document.getElementById("input-email").value,
+                    phone: document.getElementById("input-phone").value,
+                    age: document.getElementById("input-age").value,
+                    date: document.getElementById("input-date").value,
+                    plan: document.getElementById("input-plan").value,
+                    term: document.getElementById("select-term").value,
+                    weeklyFrequency: Number(document.getElementById("select-frequency").value),
+                    amount: document.getElementById("input-amount").value,
+                    paymentMethod: document.getElementById("input-paymentMethod").value
+                };
+
+                localStorage.setItem("createUserForm", JSON.stringify(formData));
+
                 window.location.href = "/registerFace";
             });
 
+            objData.faceDescriptor = JSON.parse(localStorage.getItem("faceDescriptor"));
+
+            console.log("Descriptor recuperado:", objData.faceDescriptor);
+
+        
             document.querySelector(".btn-accept").addEventListener("click", async () => {
                 objData.firstname = document.getElementById("input-firstname").value;
                 objData.lastname = document.getElementById("input-lastname").value;
@@ -155,13 +197,18 @@
                 objData.amount = document.getElementById("input-amount").value;
                 objData.paymentMethod = document.getElementById("input-paymentMethod").value;
 
-
+    
+                if(!objData.faceDescriptor){
+                    alert("Debe escanear el rostro para continuar.");
+                    return;
+                }
                 await fetchCreateUser();
                 
                 document.querySelectorAll(".create-user-container input").forEach(input => input.value = "");
                 document.querySelector(".create-user-container select").value = "1 Mes";
             });
 
+            
         });
 
         const getPort = async () => {
@@ -194,6 +241,7 @@
                 newPaidDays = (newPaidDays + 1) - diffDays;
             }
 
+            console.log(objData.faceDescriptor);
             try{
                 const response = await fetch(`http://localhost:${port}/adminCreateUser`,{
                     method: "POST",
@@ -208,6 +256,7 @@
                         age: objData.age,
                         plan: objData.plan.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" "),
                         term: objData.term,
+                        faceDescriptor: objData.faceDescriptor,
                         weeklyFrequency: objData.weeklyFrequency,
                         initialDate: new Date(objData.date).toISOString().split("T")[0].split("-").reverse().join("/"),
                         expirationDate: new Date(currentDate.getTime() + newPaidDays * 24 * 60 * 60 * 1000).toISOString().split("T")[0].split("-").reverse().join("/"),
