@@ -182,11 +182,19 @@
 
             console.log("Descriptor recuperado:", objData.faceDescriptor);
 
+            
         
             document.querySelector(".btn-accept").addEventListener("click", async () => {
+
+                const inputDocument = document.getElementById("input-document").value;
+                if(!inputDocument){
+                    alert("Ingrese un documento");
+                    return;
+                }
+
                 objData.firstname = document.getElementById("input-firstname").value;
                 objData.lastname = document.getElementById("input-lastname").value;
-                objData.document = document.getElementById("input-document").value;
+                objData.document = inputDocument;
                 objData.email = document.getElementById("input-email").value;
                 objData.phone = document.getElementById("input-phone").value;
                 objData.age = document.getElementById("input-age").value;
@@ -241,7 +249,7 @@
                 newPaidDays = (newPaidDays + 1) - diffDays;
             }
 
-            console.log(objData.faceDescriptor);
+            
             try{
                 const response = await fetch(`http://localhost:${port}/adminCreateUser`,{
                     method: "POST",

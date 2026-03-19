@@ -12,6 +12,7 @@
     <div class="body-wallpaper">
         <div class="dni-container">
             <button id="btn-admin-panel" >Panel de Administración</button>
+            <button id="btn-scan-real-time">Modo Escaneo</button>
             <div>
                 <span id="clock"></span>
             </div>
@@ -67,7 +68,7 @@
             document.addEventListener("mousemove", resetCursor);
             resetCursor();
 
-            console.log(documentValue);
+            //console.log(documentValue);
         });
 
         const getPort = async () => {
@@ -173,6 +174,10 @@
 
         document.getElementById("btn-admin-panel").addEventListener("click", () => {
             window.location.href = "/adminPanel";
+        });
+
+        document.getElementById("btn-scan-real-time").addEventListener("click", () => {
+            window.location.href = "/loginScan";
         });
         
     </script>

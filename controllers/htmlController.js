@@ -19,6 +19,10 @@ htmlController.login = (req, res) => {
     functionReadFile(req, res, "login.html");
 }
 
+htmlController.loginScan = (req, res) => {
+    functionReadFile(req, res, "loginScan.html");
+}
+
 htmlController.adminPanel = (req, res) => {
     functionReadFile(req, res, "adminPanel.html");
 }

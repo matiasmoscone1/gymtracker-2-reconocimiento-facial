@@ -99,6 +99,10 @@ const server = http.createServer(/*options,*/ (req, res) => {
         case "/": {
             htmlController.login(req, res)
             break;
+        };
+        case "/loginScan": {
+            htmlController.loginScan(req, res)
+            break;
         }
         case "/adminPanel": {
             htmlController.adminPanel(req, res);
